@@ -1,0 +1,50 @@
+// File: components/LiveMapDashboard.tsx
+"use client";
+
+import { useState } from "react";
+import { MapContainer, TileLayer, Marker, Polyline, Popup } from "react-leaflet";
+import { Icon } from "leaflet";
+import "leaflet/dist/leaflet.css";
+
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Truck, CarFront, Map as MapIcon, CircleUser } from "lucide-react";
+
+interface Vehicle {
+  id: number;
+  name: string;
+  km: number;
+  coords: [number, number];
+}
+
+const truckIcon = new Icon({
+  iconUrl: "/truck-icon.png", // Add your truck icon image in public folder
+  iconSize: [32, 32],
+});
+
+const dummyFleet: Vehicle[] = [
+  { id: 1, name: "Noah Car", km: 486, coords: [5.560, -0.205] },
+  { id: 2, name: "Jeep Car", km: 486, coords: [5.562, -0.200] },
+  { id: 3, name: "Peterbilt Truck", km: 486, coords: [5.565, -0.210] },
+];
+
+const tripRoute: [number, number][] = [
+  [5.560, -0.205],
+  [5.561, -0.202],
+  [5.562, -0.200],
+  [5.564, -0.198],
+  [5.565, -0.210],
+];
+
+export default function LiveMapDashboard() {
+  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle>(dummyFleet[0]);
+
+  return (
+    <div className="">
+     
+    </div>
+  );
+}
+
+
+/* 
+ */
