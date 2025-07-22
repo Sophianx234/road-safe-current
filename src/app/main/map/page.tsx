@@ -9,6 +9,7 @@ import {
   Polyline,
   Popup,
 } from "react-leaflet";
+import { BiFilterAlt } from "react-icons/bi";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -25,6 +26,7 @@ import { PieChartComponent } from "@/app/_components/charts/PieChart";
 import { RadarChartComponent } from "@/app/_components/charts/RadarChart";
 import { RadialChartComponent } from "@/app/_components/charts/RadialChart";
 import { FaSearch } from "react-icons/fa";
+import DriverInformationCard from "@/app/_components/InformationCard";
 
 interface Vehicle {
   id: number;
@@ -58,33 +60,47 @@ export default function LiveMapDashboard() {
   );
 
   return (
-    <div className="flex h-dvh w-dvw overflow-hidden">
+    <div className="flex  h-dvh w-dvw overflow-hidden">
       {/* Sidebar */}
-      <div className="bg-gray-100 w-96 p-4 space-y-4">
-        <h1 className="text-lg font-semibold mb-2">Active Orders: 45</h1>
+      <div className="bg-gray-100 w-96 p-4 px-8 py-10 space-y-4">
+        <h1 className="text-lg  mb-2 font-bold">Active Orders: 45</h1>
 
         {/* Search */}
-        <div className="relative">
-          <FaSearch className="absolute top-1/2 left-3 -translate-y-1/2 text-gray-400" />
+        <div className="grid grid-cols-[3fr_1fr] gap-2 items-center ">
+
+        <div className="relative  ">
+          <FaSearch className="absolute text-xs top-1/2 left-3 size-4 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             placeholder="Search"
-            className="w-full pl-10 pr-4 py-2 rounded-md border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
-          />
+            className="w-full pl-10 text-xs  py-2 rounded-md  bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+            />
+            </div>
+            <button className="flex w-full text-xs shadow gap-1 rounded-sm bg-white py-2 px-5 items-center"><BiFilterAlt/>
+            <span>Filters</span>
+            </button>
+        </div>
+        <div className=" space-y-4 pb-32 overflow-y-scroll h-full scrollbar-hide">
+        <FleetFilter/>
+
+<FleetSidebar/>
         </div>
 
         {/* Add any sidebar content here */}
+        <DriverInformationCard/>
       </div>
 
       {/* Map Section */}
-      <div className="flex-1 block   w-[80rem] overflow-hidden  ">
+      <div className="flex-1 block relative   w-[80rem] overflow-hidden  ">
         <MapContainer
           center={[5.56, -0.205]}
           zoom={13}
           
           className="size-[38rem] w-[80rem]  object-cover"
         >
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
+
           <Marker position={[5.56, -0.205]} icon={truckIcon}>
             <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
