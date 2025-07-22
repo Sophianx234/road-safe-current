@@ -9,7 +9,7 @@ const vehicles = [
   { name: 'Cargo Truck', icon: '/images/car-1.jpg', km: '486 KM' },
   { name: 'Keeway V302C', icon: '/images/motor-1.jpg', km: '486 KM' },
   { name: 'Jeep Car', icon: '/images/bicycle-1.jpg', km: '486 KM' },
-  { name: '500 SJD', icon: '/images/truck-1.jpg', km: '486 KM' },
+  { name: '500 SJD', icon: '/images/truck-1.png', km: '486 KM' },
 ];
 
 export default function FleetSidebar() {
@@ -40,7 +40,7 @@ export default function FleetSidebar() {
         </div>
 
         <img
-          src="/images/truck-1.jpg"
+          src="/images/truck-1.png"
           alt="Featured Vehicle"
           className="w-full mt-4 rounded-xl object-contain shadow-sm"
         />

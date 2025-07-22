@@ -32,34 +32,40 @@ const hotspots: Hotspot[] = [
 
 export default function HotspotStats() {
   return (
-    <div className="w-full max-w-md bg-white border border-gray-200 shadow rounded-2xl p-5 space-y-4">
+    <div className="w-full bg-white border border-gray-100 rounded-2xl shadow-md p-6 space-y-5">
+      {/* Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-700 flex items-center gap-2">
-          <FaFireAlt className="text-red-500" /> Hotspot Zones
+        <h2 className="text-base font-bold text-gray-800 flex items-center gap-2">
+          <FaFireAlt className="text-red-500" />
+          Hotspot Zones
         </h2>
-        <span className="text-xs text-gray-400">Updated: Today</span>
+        <span className="text-xs text-gray-400 italic">Updated: Today</span>
       </div>
 
+      {/* Hotspot Items */}
       <div className="space-y-4">
         {hotspots.map((spot, idx) => (
           <div
             key={idx}
-            className="flex items-center justify-between p-3 border rounded-xl hover:shadow transition-all"
+            className="flex items-center justify-between p-4 bg-gray-50 border border-gray-100 rounded-xl hover:shadow-sm transition-all"
           >
+            {/* Location Info */}
             <div className="flex items-center gap-3">
               <FaMapMarkerAlt className="text-orange-500 w-5 h-5" />
               <div>
-                <p className="font-medium text-sm text-gray-700">{spot.name}</p>
-                <p className="text-xs text-gray-400">{spot.location}</p>
+                <h3 className="font-semibold text-sm text-gray-800">{spot.name}</h3>
+                <p className="text-xs text-gray-500">{spot.location}</p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="flex items-center gap-1 text-sm font-semibold text-red-500">
+
+            {/* Incident Count & Severity */}
+            <div className="flex items-center flex-col gap-3">
+              <span className="flex  items-center gap-1 text-sm font-semibold text-red-500">
                 <FaCarCrash className="w-4 h-4" />
                 {spot.incidents}
               </span>
               <span
-                className={`text-xs font-semibold px-2 py-1 rounded-full ${
+                className={`text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full ${
                   spot.severity === 'High'
                     ? 'bg-red-100 text-red-600'
                     : spot.severity === 'Medium'

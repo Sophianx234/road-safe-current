@@ -11,7 +11,7 @@ export default function Navbar() {
         <div className="flex items-center space-x-2">
           
           <FaCarAlt className="text-orange-500 w-6 h-6" />
-          <span className="text-xl font-bold text-gray-50 font-bebas  -space-x-2">Road Safe.</span>
+          <span className="text-xl font-bold  font-bebas  -space-x-2">Road Safe.</span>
         </div>
       </div>
       <div className="w-1/3 relative">

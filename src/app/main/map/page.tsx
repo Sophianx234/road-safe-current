@@ -24,6 +24,8 @@ import { LineChartComponent } from "@/app/_components/charts/LineChart";
 import { PieChartComponent } from "@/app/_components/charts/PieChart";
 import { RadarChartComponent } from "@/app/_components/charts/RadarChart";
 import { RadialChartComponent } from "@/app/_components/charts/RadialChart";
+import StatsCard from "@/app/_components/StatsCard";
+import { FaBox, FaChartLine, FaClock, FaTruckMoving } from "react-icons/fa";
 
 interface Vehicle {
   id: number;
@@ -87,18 +89,47 @@ export default function LiveMapDashboard() {
           
         </div>
         <div className="grid grid-cols-2 mt-4 items-center justify-center gap-3">
-          <ExpenseCard icon="gas" color="green-200" />
-          <ExpenseCard icon="oil" color="green-200" />
-          <ExpenseCard icon="wash" color="green-200" />
-          <ExpenseCard icon="toll" color="green-200" />
+          <StatsCard 
+  title="Total Shipment" 
+  value="585"
+  icon={<FaBox />} 
+  change="4.58%" 
+  changeType="up" 
+/>
+
+<StatsCard 
+  title="Delivery Shipment" 
+  value="550"
+  icon={<FaTruckMoving />} 
+  change="2.34%" 
+  changeType="up" 
+/>
+
+<StatsCard 
+  title="Pending Package" 
+  value="585"
+  icon={<FaClock />} 
+  change="3.12%" 
+  changeType="down" 
+/>
+
+<StatsCard 
+  title="Nb of Delivery" 
+  value="47%" 
+  icon={<FaChartLine />} 
+  change="4.58%" 
+  changeType="up" 
+/>
+
         </div>
       </div>
-      <div className="self-start col-span-3 space-y-2">
+      <div className="self-start col-span-3 space-y-5">
         <FleetFilter />
         <HotspotStats />
         <RadarChartComponent />
           <BarChartComponent />
         <RadialChartComponent />
+        
 
         {/*
 
