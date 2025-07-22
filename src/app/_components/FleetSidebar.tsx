@@ -14,7 +14,7 @@ const vehicles = [
 
 export default function FleetSidebar() {
   return (
-    <div className="w-full max-w-xs col-span-4 bg-white border border-gray-100 rounded-2xl shadow-md p-5 space-y-6">
+    <div className="w-full max-w-xs col-span-4 self-start bg-white border border-gray-100 rounded-2xl shadow-md p-5 space-y-6">
       {/* Fleet Overview Header */}
       <section>
         <div className="flex justify-between items-center mb-1">
