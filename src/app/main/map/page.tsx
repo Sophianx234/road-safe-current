@@ -8,6 +8,11 @@ import "leaflet/dist/leaflet.css";
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Truck, CarFront, Map as MapIcon, CircleUser } from "lucide-react";
+import FleetSidebar from "@/app/_components/FleetSidebar";
+import FleetFilter from "@/app/_components/FleetFilter";
+import TripTracker from "@/app/_components/TripTracker";
+import ExpenseCard from "@/app/_components/ExpensesCard";
+import HotspotStats from "@/app/_components/HotspotStats";
 
 interface Vehicle {
   id: number;
@@ -39,8 +44,40 @@ export default function LiveMapDashboard() {
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle>(dummyFleet[0]);
 
   return (
-    <div className="">
-     
+    <div className=" mt-4 flex gap-2 items-center   ">
+      <FleetSidebar />
+      <div className="self-start space-y-2">
+
+      <div className="p-2 border  col-span-8 row-span-1  border-gray-200 rounded-lg shadow-lg">
+
+      <div className="size-[28rem] w-[40rem]   rounded-xl border-gray-500 overflow-hidden">
+
+     <MapContainer center={[51.505, -0.09]} zoom={13}   className="size-[30rem] z-10 w-[45rem]">
+  <TileLayer
+    
+    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  />
+  <Marker position={[51.505, -0.09]}>
+    <Popup>
+      A pretty CSS3 popup. <br /> Easily customizable.
+    </Popup>
+  </Marker>
+</MapContainer>
+      </div>
+      </div>
+      <div className="flex items-center justify-center gap-3">
+
+      <ExpenseCard icon="gas" color="green-200"/>
+      <ExpenseCard icon="oil" color="green-200"/>
+      <ExpenseCard icon="wash" color="green-200"/>
+      <ExpenseCard icon="toll" color="green-200"/>
+      </div>
+      </div>
+      <div className="self-start space-y-2">
+
+      <FleetFilter/>
+      <HotspotStats/>
+      </div>
     </div>
   );
 }
