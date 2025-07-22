@@ -58,14 +58,17 @@ export default function LiveMapDashboard() {
 
   return (
     <div className=" mt-4 flex gap-2 items-center   ">
-      <FleetSidebar />
-      <div className="self-start space-y-2">
-        <div className="p-2 border  col-span-8 row-span-1  border-gray-200 rounded-lg shadow-lg">
+      <div>
+
+      </div>
+      {/* map */}
+      <div className="self-start space-y-2 ">
+        <div className="p-2 border  col-span-8 row-span-1 z-10 border-gray-200 rounded-lg shadow">
           <div className="size-[28rem] w-[40rem]   rounded-xl border-gray-500 overflow-hidden">
             <MapContainer
               center={[51.505, -0.09]}
               zoom={13}
-              className="size-[30rem] z-10 w-[45rem]"
+              className="size-[30rem] z-0 w-[45rem]"
             >
               <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
               <Marker position={[51.505, -0.09]}>
@@ -76,28 +79,13 @@ export default function LiveMapDashboard() {
             </MapContainer>
           </div>
         </div>
-        <div className="flex items-center justify-center gap-3">
-          <ExpenseCard icon="gas" color="green-200" />
-          <ExpenseCard icon="oil" color="green-200" />
-          <ExpenseCard icon="wash" color="green-200" />
-          <ExpenseCard icon="toll" color="green-200" />
-        </div>
+        
         <div>
-          {/* <LineChartComponent />
-          <PieChartComponent /> */}
-        <BarChartComponent />
+
           
         </div>
       </div>
-      <div className="self-start flex-1 space-y-2">
-        <FleetFilter />
-        <HotspotStats />
-
-        {/*
-         <RadarChartComponent />
-
-          <RadialChartComponent /> */}
-      </div>
+      
     </div>
   );
 }

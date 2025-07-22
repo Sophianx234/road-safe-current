@@ -9,19 +9,15 @@ type LayoutProps = {
 function layout({children}:LayoutProps) {
 
   return (
-    <div className=" grid grid-cols-12 ">
-      
-<div className="col-span-12 row-span-1 sticky top-0">
+    <div className=" flex  gap-2 ">
 
-    <Navbar/>
-</div>
-  <div className="row-span-11 col-span-1">
+  
 <Sidebar/>
-    </div>  
+    
 
     
       
-    <main className="flex  pr-6 col-start-2 col-span-11 row-span-12  overflow-y-auto ">
+    <main className="bg-gray-50 ">
 
 
       {children}

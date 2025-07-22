@@ -5,16 +5,16 @@ import { FaTachometerAlt, FaThermometerHalf } from 'react-icons/fa';
 const vehicles = [
   { name: 'Noah Car', icon: '/images/car-1.png', km: '486 KM' },
   { name: 'Jeep Car', icon: '/images/jeep.png', km: '486 KM' },
-  { name: 'Peterbilt Trucks', icon: '/images/truck-1.jpg', km: '486 KM', highlighted: true },
+  { name: 'Peterbilt Trucks', icon: '/images/truck-1x.png', km: '486 KM', highlighted: true },
   { name: 'Cargo Truck', icon: '/images/car-1.jpg', km: '486 KM' },
   { name: 'Keeway V302C', icon: '/images/motor-1.jpg', km: '486 KM' },
   { name: 'Jeep Car', icon: '/images/bicycle-1.jpg', km: '486 KM' },
-  { name: '500 SJD', icon: '/images/truck-1.jpg', km: '486 KM' },
+  { name: '500 SJD', icon: '/images/truck-1x.png', km: '486 KM' },
 ];
 
 export default function FleetSidebar() {
   return (
-    <div className="w-full max-w-xs col-span-4 self-start bg-white border border-gray-100 rounded-2xl shadow-md p-5 space-y-6">
+    <div className="   self-start bg-white border border-gray-100 rounded-2xl shadow-md p-5 space-y-6">
       {/* Fleet Overview Header */}
       <section>
         <div className="flex justify-between items-center mb-1">
@@ -40,7 +40,7 @@ export default function FleetSidebar() {
         </div>
 
         <img
-          src="/images/truck-1.jpg"
+          src="/images/truck-1x.png"
           alt="Featured Vehicle"
           className="w-full mt-4 rounded-xl object-contain shadow-sm"
         />
