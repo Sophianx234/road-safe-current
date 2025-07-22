@@ -25,7 +25,7 @@ const ExpenseCard  = ({ title='damian', amount=1433, icon='oil', color }:Expense
   };
 
   return (
-    <div className={`bg-${color}  p-6 border-gray-200 shadow rounded-lg text-center  flex  justify-center items-center`}>
+    <div className={`bg-${color}  p-6 border border-gray-200 shadow rounded-lg text-center  flex  justify-center items-center`}>
       {getIcon()}
       <div >
 

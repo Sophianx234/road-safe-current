@@ -57,11 +57,11 @@ export default function LiveMapDashboard() {
   );
 
   return (
-    <div className=" mt-4 flex gap-2 items-center   ">
+    <div className=" grid grid-cols-12 gap-4 pt-4  ">
       <FleetSidebar />
-      <div className="self-start space-y-2">
-        <div className="p-2 border  col-span-8 row-span-1  border-gray-200 rounded-lg shadow-lg">
-          <div className="size-[28rem] w-[40rem]   rounded-xl border-gray-500 overflow-hidden">
+      <div className="self-start space-y-2 col-span-6 overflow-hidden">
+        <div className="p-2 border    row-span-1   border-gray-200 rounded-lg shadow">
+          <div className="size-full   rounded-xl border-gray-500 overflow-hidden">
             <MapContainer
               center={[51.505, -0.09]}
               zoom={13}
@@ -76,7 +76,7 @@ export default function LiveMapDashboard() {
             </MapContainer>
           </div>
         </div>
-        <div className="flex items-center justify-center gap-3">
+        <div className="grid grid-cols-2 mt-4 items-center justify-center gap-3">
           <ExpenseCard icon="gas" color="green-200" />
           <ExpenseCard icon="oil" color="green-200" />
           <ExpenseCard icon="wash" color="green-200" />
@@ -84,19 +84,21 @@ export default function LiveMapDashboard() {
         </div>
         <div>
           {/* <LineChartComponent />
-          <PieChartComponent /> */}
+          <PieChartComponent /> 
         <BarChartComponent />
+          */}
           
         </div>
       </div>
-      <div className="self-start flex-1 space-y-2">
+      <div className="self-start col-span-3 space-y-2">
         <FleetFilter />
         <HotspotStats />
+        <RadarChartComponent />
+        <RadialChartComponent />
 
         {/*
-         <RadarChartComponent />
 
-          <RadialChartComponent /> */}
+           */}
       </div>
     </div>
   );
