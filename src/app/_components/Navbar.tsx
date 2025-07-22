@@ -6,12 +6,12 @@ import { FaCarAlt, FaSearch } from 'react-icons/fa';
 
 export default function Navbar() {
   return (
-    <header className="z-50 flex sticky top-0 items-center justify-between bg-white px-6 py-4 shadow-sm">
+    <header className="z-50 bg-white  flex sticky top-0 items-center justify-between  px-6 py-4 shadow-sm">
       <div>
         <div className="flex items-center space-x-2">
           
           <FaCarAlt className="text-orange-500 w-6 h-6" />
-          <span className="text-xl font-bold text-gray-800 font-bebas  -space-x-2">Road Safe.</span>
+          <span className="text-xl font-bold text-gray-50 font-bebas  -space-x-2">Road Safe.</span>
         </div>
       </div>
       <div className="w-1/3 relative">

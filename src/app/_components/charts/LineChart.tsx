@@ -29,7 +29,7 @@ export function LineChartComponent() {
   };
 
   return (
-    <Card>
+    <Card className='shadow border w-full border-gray-100'>
       <CardHeader>
         <CardTitle>Accident Trend (Monthly)</CardTitle>
       </CardHeader>

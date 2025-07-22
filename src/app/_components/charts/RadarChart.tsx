@@ -29,7 +29,7 @@ export function RadarChartComponent() {
   };
 
   return (
-    <Card>
+    <Card className='shadow border w-full border-gray-100'>
       <CardHeader>
         <CardTitle>Environmental Risk Factors</CardTitle>
       </CardHeader>

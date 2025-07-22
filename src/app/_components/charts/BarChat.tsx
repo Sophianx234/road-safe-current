@@ -97,7 +97,7 @@ export function BarChartComponent() {
   };
 
   return (
-    <Card className="shadow-md border w-full border-gray-100">
+    <Card className="shadow border w-full border-gray-100">
       <CardHeader>
         <CardTitle className="text-gray-700 text-base font-semibold">
           Vehicle Type Accidents

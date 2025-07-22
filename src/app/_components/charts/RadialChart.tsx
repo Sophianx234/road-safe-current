@@ -19,7 +19,7 @@ export function RadialChartComponent() {
   };
 
   return (
-    <Card>
+    <Card className='shadow border w-full border-gray-100'>
       <CardHeader>
         <CardTitle>Zone Safety Score</CardTitle>
       </CardHeader>

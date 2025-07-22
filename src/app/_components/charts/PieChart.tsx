@@ -18,7 +18,7 @@ export function PieChartComponent() {
   };
 
   return (
-    <Card>
+    <Card className='shadow border w-full border-gray-100'>
       <CardHeader>
         <CardTitle>Top Causes of Accidents</CardTitle>
       </CardHeader>

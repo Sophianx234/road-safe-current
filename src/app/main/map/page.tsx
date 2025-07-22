@@ -55,10 +55,14 @@ export default function LiveMapDashboard() {
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle>(
     dummyFleet[0]
   );
-
+  
   return (
     <div className=" grid grid-cols-12 gap-4 pt-4  ">
+      <div className="col-span-3 space-y-4">
+
       <FleetSidebar />
+      <PieChartComponent /> 
+      </div>
       <div className="self-start space-y-2 col-span-6 overflow-hidden">
         <div className="p-2 border    row-span-1   border-gray-200 rounded-lg shadow">
           <div className="size-full   rounded-xl border-gray-500 overflow-hidden">
@@ -76,24 +80,24 @@ export default function LiveMapDashboard() {
             </MapContainer>
           </div>
         </div>
+        <div>
+          <LineChartComponent />
+          {/* 
+          */}
+          
+        </div>
         <div className="grid grid-cols-2 mt-4 items-center justify-center gap-3">
           <ExpenseCard icon="gas" color="green-200" />
           <ExpenseCard icon="oil" color="green-200" />
           <ExpenseCard icon="wash" color="green-200" />
           <ExpenseCard icon="toll" color="green-200" />
         </div>
-        <div>
-          {/* <LineChartComponent />
-          <PieChartComponent /> 
-        <BarChartComponent />
-          */}
-          
-        </div>
       </div>
       <div className="self-start col-span-3 space-y-2">
         <FleetFilter />
         <HotspotStats />
         <RadarChartComponent />
+          <BarChartComponent />
         <RadialChartComponent />
 
         {/*
