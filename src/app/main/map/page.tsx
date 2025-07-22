@@ -24,6 +24,7 @@ import { LineChartComponent } from "@/app/_components/charts/LineChart";
 import { PieChartComponent } from "@/app/_components/charts/PieChart";
 import { RadarChartComponent } from "@/app/_components/charts/RadarChart";
 import { RadialChartComponent } from "@/app/_components/charts/RadialChart";
+import { FaSearch } from "react-icons/fa";
 
 interface Vehicle {
   id: number;
@@ -57,38 +58,44 @@ export default function LiveMapDashboard() {
   );
 
   return (
-    <div className=" mt-4 flex gap-2 items-center   ">
-      <div>
+    <div className="flex h-dvh w-dvw overflow-hidden">
+      {/* Sidebar */}
+      <div className="bg-gray-100 w-96 p-4 space-y-4">
+        <h1 className="text-lg font-semibold mb-2">Active Orders: 45</h1>
 
-      </div>
-      {/* map */}
-      <div className="self-start space-y-2 ">
-        <div className="p-2 border  col-span-8 row-span-1 z-10 border-gray-200 rounded-lg shadow">
-          <div className="size-[28rem] w-[40rem]   rounded-xl border-gray-500 overflow-hidden">
-            <MapContainer
-              center={[51.505, -0.09]}
-              zoom={13}
-              className="size-[30rem] z-0 w-[45rem]"
-            >
-              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-              <Marker position={[51.505, -0.09]}>
-                <Popup>
-                  A pretty CSS3 popup. <br /> Easily customizable.
-                </Popup>
-              </Marker>
-            </MapContainer>
-          </div>
+        {/* Search */}
+        <div className="relative">
+          <FaSearch className="absolute top-1/2 left-3 -translate-y-1/2 text-gray-400" />
+          <input
+            type="text"
+            placeholder="Search"
+            className="w-full pl-10 pr-4 py-2 rounded-md border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+          />
         </div>
-        
-        <div>
 
+        {/* Add any sidebar content here */}
+      </div>
+
+      {/* Map Section */}
+      <div className="flex-1 block   w-[80rem] overflow-hidden  ">
+        <MapContainer
+          center={[5.56, -0.205]}
+          zoom={13}
           
-        </div>
+          className="size-[38rem] w-[80rem]  object-cover"
+        >
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          <Marker position={[5.56, -0.205]} icon={truckIcon}>
+            <Popup>
+              A pretty CSS3 popup. <br /> Easily customizable.
+            </Popup>
+          </Marker>
+        </MapContainer>
       </div>
-      
     </div>
   );
 }
+
 
 /*
  */

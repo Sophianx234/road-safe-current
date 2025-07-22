@@ -9,7 +9,7 @@ type LayoutProps = {
 function layout({children}:LayoutProps) {
 
   return (
-    <div className=" flex  gap-2 ">
+    <div className=" flex   ">
 
   
 <Sidebar/>
@@ -17,7 +17,7 @@ function layout({children}:LayoutProps) {
 
     
       
-    <main className="bg-gray-50 ">
+    <main className=" w-dvw overflow-hidden ">
 
 
       {children}
