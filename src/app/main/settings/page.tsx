@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState, ChangeEvent } from 'react';
 import {
   FaUser,
   FaLock,
@@ -15,21 +15,49 @@ import {
 
 export default function SettingsPage() {
   const [gender, setGender] = useState('Male');
+  const [profileImage, setProfileImage] = useState('/images/user-1.jpg');
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleImageClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfileImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row p-6 gap-6 font-sans bg-gray-50">
+    <div className="min-h-screen flex flex-col md:flex-row p-6 gap-6 font-sans ">
       {/* Sidebar */}
       <aside className="bg-white border border-gray-200 w-full md:max-w-xs rounded-3xl shadow-md p-6 space-y-8">
         <div className="flex flex-col items-center text-center">
           <div className="relative">
             <img
-              src="/images/user-1.jpg"
+              src={profileImage}
               alt="Profile"
-              className="w-24 h-24 rounded-full object-cover shadow-md"
+              onClick={handleImageClick}
+              className="w-24 h-24 rounded-full object-cover shadow-md cursor-pointer transition hover:brightness-95"
             />
-            <button className="absolute bottom-1 right-1 bg-orange-500 hover:bg-orange-600 text-white p-1.5 rounded-full shadow text-xs">
+            <button
+              onClick={handleImageClick}
+              className="absolute bottom-1 right-1 bg-orange-500 hover:bg-orange-600 text-white p-1.5 rounded-full shadow text-xs"
+            >
               <FaEdit />
             </button>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              ref={fileInputRef}
+              className="hidden"
+            />
           </div>
           <h3 className="text-lg font-semibold mt-3 text-gray-800">Roland Donald</h3>
           <p className="text-sm text-gray-500">Cashier</p>
@@ -77,7 +105,7 @@ export default function SettingsPage() {
           ))}
         </div>
 
-        {/* Input Fields with Icons */}
+        {/* Input Fields */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
           <InputField label="First Name" defaultValue="Roland" icon={<FaUser />} />
           <InputField label="Last Name" defaultValue="Donald" icon={<FaUser />} />
@@ -88,9 +116,7 @@ export default function SettingsPage() {
               defaultValue="rolandDonald@mail.com"
               icon={<FaEnvelope />}
             />
-            <span className="absolute right-4 inset-y-0 my-auto text-green-600 text-xs flex items-center gap-1 pointer-events-none">
-              <FaCheckCircle className="text-green-500" /> Verified
-            </span>
+            
           </div>
 
           <InputField label="Address" defaultValue="3605 Parker Rd." icon={<FaMapMarkerAlt />} />
@@ -101,7 +127,7 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        {/* Buttons */}
+        {/* Action Buttons */}
         <div className="flex justify-end gap-4 pt-4">
           <button className="border border-orange-500 text-orange-500 px-5 py-2 rounded-xl text-sm hover:bg-orange-50 transition">
             Discard Changes
@@ -121,7 +147,7 @@ type InputFieldProps = {
   icon: React.ReactNode;
 };
 
-// ✅ Icon-enhanced reusable input field
+// Reusable input field with icon
 function InputField({ label, defaultValue, icon }: InputFieldProps) {
   return (
     <div className="relative">

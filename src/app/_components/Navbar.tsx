@@ -7,7 +7,7 @@ import { MdOutlineNotificationsNone } from 'react-icons/md';
 
 export default function Navbar() {
   return (
-    <header className="z-[10000] bg-white  flex sticky top-0 items-center justify-between  px-6 py-4 shadow-sm">
+    <header className="z-50 bg-white  flex sticky top-0 items-center justify-between  px-6 py-4 shadow-2xs">
       <div>
         <div className="flex items-center space-x-2">
           

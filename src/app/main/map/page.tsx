@@ -98,9 +98,11 @@ export default function LiveMapDashboard() {
   );
   const {showMap,showLineChart,showDonutChart,showPieChart} = useDashStore()
   return (
-    <div className=" grid grid-cols-12 gap-4 pt-4  ">
-      <div className="col-span-3 space-y-4">
+    <>
+    <div className=" grid grid-cols-12 -z-40 gap-4 pt-4  ">
     <DashboardToggles/>
+
+      <div className="col-span-3 space-y-4">
       <FleetSidebar />
       
       </div>
@@ -131,6 +133,7 @@ export default function LiveMapDashboard() {
         
       </div>
     </div>
+    </>
   );
 }
 

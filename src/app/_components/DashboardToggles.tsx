@@ -23,9 +23,9 @@ export default function DashboardToggles() {
   const [showTable, setShowTable] = useState(false);
 
   return (
-    <div className="w-full space-y-4">
+    <div className="w-full z-50  col-span-12 space-y-4">
       {/* Toggle Buttons */}
-      <div className="grid grid-cols-2 gap-2">
+      <div className="flex w-full col-span-12 justify-evenly gap-2">
         <ToggleButton
           active={showStats}
           onClick={() => setShowStats(!showStats)}

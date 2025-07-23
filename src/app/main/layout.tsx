@@ -1,9 +1,7 @@
-import Image from "next/image";
 import { ReactNode } from "react";
 import Navbar from "../_components/Navbar";
-import Sidebar from "../_components/Sidebar";
-import Notification from "../_components/Notification";
 import NotificationList from "../_components/NotificationList";
+import Sidebar from "../_components/Sidebar";
 
 type LayoutProps = {
   children: ReactNode;
@@ -23,6 +21,7 @@ function layout({children}:LayoutProps) {
 
     
     <main className="flex relative z-20  pr-6 col-start-2 col-span-11 row-span-12  overflow-y-auto ">
+      
       <NotificationList/>
 
 
