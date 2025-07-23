@@ -63,7 +63,7 @@ export default function LiveMapDashboard() {
       <div className="col-span-3 space-y-4">
 
       <FleetSidebar />
-      <PieChartComponent /> 
+      
       </div>
       <div className="self-start space-y-2 col-span-6 overflow-hidden">
         <div className="p-2 border    row-span-1   border-gray-200 rounded-lg shadow">
@@ -82,58 +82,12 @@ export default function LiveMapDashboard() {
             </MapContainer>
           </div>
         </div>
-        <div>
-          <LineChartComponent />
-          {/* 
-          */}
-          
-        </div>
-        <div className="grid grid-cols-2 mt-4 items-center justify-center gap-3">
-          <StatsCard 
-  title="Total Shipment" 
-  value="585"
-  icon={<FaBox />} 
-  change="4.58%" 
-  changeType="up" 
-/>
-
-<StatsCard 
-  title="Delivery Shipment" 
-  value="550"
-  icon={<FaTruckMoving />} 
-  change="2.34%" 
-  changeType="up" 
-/>
-
-<StatsCard 
-  title="Pending Package" 
-  value="585"
-  icon={<FaClock />} 
-  change="3.12%" 
-  changeType="down" 
-/>
-
-<StatsCard 
-  title="Nb of Delivery" 
-  value="47%" 
-  icon={<FaChartLine />} 
-  change="4.58%" 
-  changeType="up" 
-/>
-
-        </div>
+        
+        
       </div>
       <div className="self-start col-span-3 space-y-5">
         <FleetFilter />
-        <HotspotStats />
-        <RadarChartComponent />
-          <BarChartComponent />
-        <RadialChartComponent />
         
-
-        {/*
-
-           */}
       </div>
     </div>
   );
