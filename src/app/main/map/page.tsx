@@ -37,43 +37,52 @@ const tripRoute: [number, number][] = [
   [5.565, -0.21],
 ];
 
-import { FaChartLine, FaDollarSign, FaShoppingCart, FaUsers } from 'react-icons/fa';
+import { FaChartLine, FaDollarSign, FaShoppingCart, FaUserInjured, FaUsers } from 'react-icons/fa';
 
 import { StatCardProps } from './StatsCard'; // If it's in a separate file
 import RoadUserInjuriesChart from "@/app/_components/charts/RoadUserInjuryChart";
 import InjuryDonutChart from "@/app/_components/charts/InjuryDonutChart";
 import AiChatInfoCard from "@/app/_components/AIChat";
 
-export const statsData: StatCardProps[] = [
+import { FaCarCrash, FaSkullCrossbones, FaAmbulance } from 'react-icons/fa';
+import RoadSafetyStatCard from './RoadSafetyStatCard';
+import DashboardToggles from "@/app/_components/DashboardToggles";
+
+const statsData: StatCardProps[] = [
   {
-    title: 'New Users',
-    value: '1,245',
-    icon: <FaUsers />,
-    change: '8.5%',
+    title: 'Fatal Accidents',
+    value: '1,042',
+    icon: <FaSkullCrossbones />,
+    change: '4.2%',
     changeType: 'up',
+    description: 'Compared to same period last year',
   },
   {
-    title: 'Orders',
-    value: '320',
-    icon: <FaShoppingCart />,
-    change: '3.2%',
+    title: 'Non-Fatal Accidents',
+    value: '3,850',
+    icon: <FaAmbulance />,
+    change: '2.1%',
     changeType: 'down',
+    description: 'Significant drop in the Ashanti region',
   },
   {
-    title: 'Website Visits',
-    value: '14,203',
-    icon: <FaChartLine />,
-    change: '12.4%',
+    title: 'Total Road Accidents',
+    value: '5,122',
+    icon: <FaCarCrash />,
+    change: '1.3%',
     changeType: 'up',
+    description: 'National total as of June 2025',
   },
-  {
-    title: 'Revenue',
-    value: '$9,480',
-    icon: <FaDollarSign />,
-    change: '5.9%',
+   {
+    title: 'Persons Injured',
+    value: '4,418',
+    icon: <FaUserInjured />,
+    change: '3.4%',
     changeType: 'up',
+    description: 'Most injuries occurred in urban centers',
   },
 ];
+
 
 
 
@@ -85,7 +94,7 @@ export default function LiveMapDashboard() {
   return (
     <div className=" grid grid-cols-12 gap-4 pt-4  ">
       <div className="col-span-3 space-y-4">
-
+    <DashboardToggles/>
       <FleetSidebar />
       
       </div>
