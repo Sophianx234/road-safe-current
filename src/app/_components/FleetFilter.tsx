@@ -6,18 +6,21 @@ import {
   FaCar,
   FaMotorcycle,
   FaTruck,
-  FaChevronDown,
+  FaTruckMoving,
   FaMapMarkerAlt,
   FaExclamationTriangle,
 } from 'react-icons/fa';
 
 const years = ['2021', '2022', '2023', '2024'];
+
 const types = [
-  { label: 'All', value: '' },
+  { label: 'All', value: '', icon: <FaFilter /> },
   { label: 'Car', value: 'car', icon: <FaCar /> },
   { label: 'Truck', value: 'truck', icon: <FaTruck /> },
   { label: 'Motorbike', value: 'bike', icon: <FaMotorcycle /> },
+  { label: 'Long Vehicle', value: 'long-vehicle', icon: <FaTruckMoving /> },
 ];
+
 const statuses = ['All', 'Active', 'Idle', 'Crashed'];
 const regions = ['All', 'North', 'South', 'East', 'West'];
 const severities = ['All', 'Low', 'Medium', 'High'];
@@ -53,27 +56,27 @@ export default function FleetFilter({
   };
 
   return (
-    <div className="w-full self-start bg-white border border-gray-100 rounded-2xl shadow p-4 space-y-4">
+    <div className="w-full bg-white rounded-2xl border border-gray-200 shadow-sm p-5 space-y-5">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold text-gray-600 flex items-center gap-2">
-          <FaFilter className="text-gray-400" /> Filters
+      <div className="flex items-center justify-between mb-1">
+        <h2 className="text-base font-semibold text-gray-700 flex items-center gap-2">
+          <FaFilter className="text-orange-500" /> Filters
         </h2>
         <button
           onClick={clearFilters}
-          className="text-xs text-red-500 hover:underline"
+          className="text-sm text-red-500 hover:underline"
         >
           Clear
         </button>
       </div>
 
-      {/* Year Filter */}
+      {/* Year */}
       <div>
-        <label className="text-xs text-gray-500 block mb-1">Year</label>
+        <label className="block text-xs text-gray-500 mb-1">Year</label>
         <select
           value={year}
           onChange={(e) => setYear(e.target.value)}
-          className="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
         >
           <option value="">Select Year</option>
           {years.map((yr) => (
@@ -84,18 +87,18 @@ export default function FleetFilter({
         </select>
       </div>
 
-      {/* Vehicle Type Filter */}
+      {/* Vehicle Type */}
       <div>
-        <label className="text-xs text-gray-500 block mb-1">Vehicle Type</label>
-        <div className="flex gap-2 flex-wrap">
+        <label className="block text-xs text-gray-500 mb-1">Vehicle Type</label>
+        <div className="flex flex-wrap gap-2">
           {types.map((item) => (
             <button
               key={item.value}
               onClick={() => setType(item.value)}
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium ${
+              className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium border transition ${
                 type === item.value
-                  ? 'bg-orange-500 text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-orange-100'
+                  ? 'bg-orange-500 text-white border-orange-500'
+                  : 'bg-gray-50 text-gray-700 hover:bg-orange-100 border-gray-300'
               }`}
             >
               {item.icon} {item.label}
@@ -104,13 +107,13 @@ export default function FleetFilter({
         </div>
       </div>
 
-      {/* Status Filter */}
+      {/* Status */}
       <div>
-        <label className="text-xs text-gray-500 block mb-1">Status</label>
+        <label className="block text-xs text-gray-500 mb-1">Status</label>
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value)}
-          className="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
         >
           {statuses.map((s) => (
             <option key={s} value={s === 'All' ? '' : s.toLowerCase()}>
@@ -120,50 +123,47 @@ export default function FleetFilter({
         </select>
       </div>
 
-      {/* Region Filter */}
+      {/* Region */}
       <div>
-        <label className="text-xs text-gray-500 block mb-1 flex items-center gap-1">
+        <label className="block text-xs text-gray-500 mb-1 flex items-center gap-1">
           <FaMapMarkerAlt className="text-gray-400" /> Region
         </label>
         <select
           value={region}
           onChange={(e) => setRegion(e.target.value)}
-          className="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
         >
-          {regions.map((regionOption) => (
-            <option
-              key={regionOption}
-              value={regionOption === 'All' ? '' : regionOption.toLowerCase()}
-            >
-              {regionOption}
+          {regions.map((r) => (
+            <option key={r} value={r === 'All' ? '' : r.toLowerCase()}>
+              {r}
             </option>
           ))}
         </select>
       </div>
 
-      {/* Severity Filter */}
+      {/* Severity */}
       <div>
-        <label className="text-xs text-gray-500 block mb-1 flex items-center gap-1">
+        <label className="block text-xs text-gray-500 mb-1 flex items-center gap-1">
           <FaExclamationTriangle className="text-gray-400" /> Severity
         </label>
         <select
           value={severity}
           onChange={(e) => setSeverity(e.target.value)}
-          className="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
         >
-          {severities.map((sev) => (
-            <option key={sev} value={sev === 'All' ? '' : sev.toLowerCase()}>
-              {sev}
+          {severities.map((s) => (
+            <option key={s} value={s === 'All' ? '' : s.toLowerCase()}>
+              {s}
             </option>
           ))}
         </select>
       </div>
 
-      {/* Apply Filter Button */}
-      <div className="pt-2">
+      {/* Apply Button */}
+      <div>
         <button
           onClick={handleFilterChange}
-          className="w-full bg-orange-500 hover:bg-orange-600 transition-colors text-white py-2 text-sm font-semibold rounded-lg"
+          className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg font-semibold text-sm transition"
         >
           Apply Filters
         </button>

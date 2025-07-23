@@ -26,6 +26,7 @@ import { RadarChartComponent } from "@/app/_components/charts/RadarChart";
 import { RadialChartComponent } from "@/app/_components/charts/RadialChart";
 import StatsCard from "@/app/_components/StatsCard";
 import { FaBox, FaChartLine, FaClock, FaTruckMoving } from "react-icons/fa";
+import DashboardToggles from "@/app/_components/DashboardToggles";
 
 interface Vehicle {
   id: number;
@@ -59,8 +60,9 @@ export default function LiveMapDashboard() {
   );
   
   return (
-    <div className=" grid grid-cols-12 gap-4 pt-4  ">
-      <div className="col-span-3 space-y-4">
+    <div className=" grid grid-cols-12 gap-4 pt-4 h-dvh overflow-hidden  ">
+      <div className="col-span-3 h-dvh overflow-y-scroll scrollbar-hide space-y-4">
+        <DashboardToggles/>
 
       <FleetSidebar />
       
