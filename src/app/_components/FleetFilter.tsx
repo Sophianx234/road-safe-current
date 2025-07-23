@@ -9,6 +9,7 @@ import {
   FaTruckMoving,
   FaMapMarkerAlt,
   FaExclamationTriangle,
+  FaCarCrash,
 } from 'react-icons/fa';
 
 const years = ['2021', '2022', '2023', '2024'];
@@ -21,7 +22,7 @@ const types = [
   { label: 'Long Vehicle', value: 'long-vehicle', icon: <FaTruckMoving /> },
 ];
 
-const statuses = ['All', 'Active', 'Idle', 'Crashed'];
+const accidentTypes = ['All', 'Collision', 'Overturning', 'Pedestrian Knockdown', 'Hit and Run'];
 const regions = ['All', 'North', 'South', 'East', 'West'];
 const severities = ['All', 'Low', 'Medium', 'High'];
 
@@ -31,25 +32,25 @@ export default function FleetFilter({
   onFilterChange?: (filters: {
     year: string;
     type: string;
-    status: string;
+    accidentType: string;
     region: string;
     severity: string;
   }) => void;
 }) {
   const [year, setYear] = useState('');
   const [type, setType] = useState('');
-  const [status, setStatus] = useState('');
+  const [accidentType, setAccidentType] = useState('');
   const [region, setRegion] = useState('');
   const [severity, setSeverity] = useState('');
 
   const handleFilterChange = () => {
-    onFilterChange?.({ year, type, status, region, severity });
+    onFilterChange?.({ year, type, accidentType, region, severity });
   };
 
   const clearFilters = () => {
     setYear('');
     setType('');
-    setStatus('');
+    setAccidentType('');
     setRegion('');
     setSeverity('');
     handleFilterChange();
@@ -60,7 +61,7 @@ export default function FleetFilter({
       {/* Header */}
       <div className="flex items-center justify-between mb-1">
         <h2 className="text-base font-semibold text-gray-700 flex items-center gap-2">
-          <FaFilter className="text-orange-500" /> Filters
+          <FaFilter className="text-black" /> Filters
         </h2>
         <button
           onClick={clearFilters}
@@ -107,17 +108,19 @@ export default function FleetFilter({
         </div>
       </div>
 
-      {/* Status */}
+      {/* Accident Type */}
       <div>
-        <label className="block text-xs text-gray-500 mb-1">Status</label>
+        <label className="block text-xs text-gray-500 mb-1 flex items-center gap-1">
+          <FaCarCrash className="text-gray-500" /> Accident Type
+        </label>
         <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
+          value={accidentType}
+          onChange={(e) => setAccidentType(e.target.value)}
           className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
         >
-          {statuses.map((s) => (
-            <option key={s} value={s === 'All' ? '' : s.toLowerCase()}>
-              {s}
+          {accidentTypes.map((type) => (
+            <option key={type} value={type === 'All' ? '' : type.toLowerCase()}>
+              {type}
             </option>
           ))}
         </select>

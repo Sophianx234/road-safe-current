@@ -47,6 +47,12 @@ import AiChatInfoCard from "@/app/_components/AIChat";
 import { FaCarCrash, FaSkullCrossbones, FaAmbulance } from 'react-icons/fa';
 import RoadSafetyStatCard from './RoadSafetyStatCard';
 import DashboardToggles from "@/app/_components/DashboardToggles";
+import { RadialChartComponent } from "@/app/_components/charts/RadialChart";
+import { BarChartComponent } from "@/app/_components/charts/BarChat";
+import { LineChartComponent } from "@/app/_components/charts/LineChart";
+import { RadarChartComponent } from "@/app/_components/charts/RadarChart";
+import HotspotStats from "@/app/_components/HotspotStats";
+import RoadAccidentStatsTable from "@/app/_components/charts/RoadAccidentStatsTable";
 
 const statsData: StatCardProps[] = [
   {
@@ -107,8 +113,13 @@ export default function LiveMapDashboard() {
         ))}
         </div>
 
-        {showLineChart&&<RoadUserInjuriesChart/>}
-        {showDonutChart&&<InjuryDonutChart/>}
+        {!showLineChart&&<RoadUserInjuriesChart/>}
+        {!showDonutChart&&<InjuryDonutChart/>}
+        <RadialChartComponent/>
+        <HotspotStats/>
+        <BarChartComponent/>
+        <LineChartComponent/>
+        <RadarChartComponent/>
         <AiChatInfoCard/>
 
 

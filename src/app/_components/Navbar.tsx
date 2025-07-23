@@ -3,10 +3,11 @@
 import { ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import { FaCarAlt, FaSearch } from 'react-icons/fa';
+import { MdOutlineNotificationsNone } from 'react-icons/md';
 
 export default function Navbar() {
   return (
-    <header className="z-50 bg-white  flex sticky top-0 items-center justify-between  px-6 py-4 shadow-sm">
+    <header className="z-[10000] bg-white  flex sticky top-0 items-center justify-between  px-6 py-4 shadow-sm">
       <div>
         <div className="flex items-center space-x-2">
           
@@ -25,6 +26,7 @@ export default function Navbar() {
 
       {/* User Profile */}
       <div className="flex items-center space-x-3">
+        <MdOutlineNotificationsNone className='size-5'/>
         <div className="flex items-center space-x-2 bg-gray-100 rounded-full pr-3  cursor-pointer hover:bg-gray-200">
           <div className='relative rounded-full overflow-hidden size-11'>
 

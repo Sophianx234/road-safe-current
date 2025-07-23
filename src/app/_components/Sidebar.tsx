@@ -10,13 +10,15 @@ import {
   MdOutlineNotificationsNone,
   MdOutlineSettings,
 } from 'react-icons/md';
+
+import { GiArtificialHive } from "react-icons/gi";
+
 import clsx from 'clsx';
 
 const navItems = [
   { icon: MdOutlineDashboard, href: '/dashboard' },
   { icon: MdOutlineMap, href: '/maps' },
-  { icon: MdOutlineCarRental, href: '/fleet' },
-  { icon: MdOutlineNotificationsNone, href: '/notifications' },
+  {icon: GiArtificialHive , href: '/ai'},
   { icon: MdOutlineSettings, href: '/settings' },
 ];
 

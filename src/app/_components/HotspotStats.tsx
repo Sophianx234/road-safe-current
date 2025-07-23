@@ -1,7 +1,7 @@
 'use client';
 
 import { FaMapMarkerAlt, FaFireAlt, FaCarCrash } from 'react-icons/fa';
-
+import { SiFireship } from "react-icons/si";
 type Hotspot = {
   name: string;
   location: string;
@@ -36,7 +36,7 @@ export default function HotspotStats() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <h2 className="text-base font-bold text-gray-800 flex items-center gap-2">
-          <FaFireAlt className="text-red-500" />
+          <SiFireship className="text-black" />
           Hotspot Zones
         </h2>
         <span className="text-xs text-gray-400 italic">Updated: Today</span>
@@ -51,7 +51,7 @@ export default function HotspotStats() {
           >
             {/* Location Info */}
             <div className="flex items-center gap-3">
-              <FaMapMarkerAlt className="text-orange-500 w-5 h-5" />
+                <FaMapMarkerAlt className="text-black w-5 h-5" />
               <div>
                 <h3 className="font-semibold text-sm text-gray-800">{spot.name}</h3>
                 <p className="text-xs text-gray-500">{spot.location}</p>
