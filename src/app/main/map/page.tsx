@@ -1,32 +1,15 @@
 // File: components/LiveMapDashboard.tsx
 "use client";
 
-import { useState } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Polyline,
-  Popup,
-} from "react-leaflet";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { useState } from "react";
 
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Truck, CarFront, Map as MapIcon, CircleUser } from "lucide-react";
-import FleetSidebar from "@/app/_components/FleetSidebar";
 import FleetFilter from "@/app/_components/FleetFilter";
-import TripTracker from "@/app/_components/TripTracker";
-import ExpenseCard from "@/app/_components/ExpensesCard";
-import HotspotStats from "@/app/_components/HotspotStats";
-import { BarChartComponent } from "@/app/_components/charts/BarChat";
-import { LineChartComponent } from "@/app/_components/charts/LineChart";
-import { PieChartComponent } from "@/app/_components/charts/PieChart";
-import { RadarChartComponent } from "@/app/_components/charts/RadarChart";
-import { RadialChartComponent } from "@/app/_components/charts/RadialChart";
+import FleetSidebar from "@/app/_components/FleetSidebar";
+import { Map } from "@/app/_components/Map";
 import StatsCard from "@/app/_components/StatsCard";
-import { FaBox, FaChartLine, FaClock, FaTruckMoving } from "react-icons/fa";
-import DashboardToggles from "@/app/_components/DashboardToggles";
+import { useDashStore } from "@/store/dash-store";
 
 interface Vehicle {
   id: number;
@@ -54,36 +37,72 @@ const tripRoute: [number, number][] = [
   [5.565, -0.21],
 ];
 
+import { FaChartLine, FaDollarSign, FaShoppingCart, FaUsers } from 'react-icons/fa';
+
+import { StatCardProps } from './StatsCard'; // If it's in a separate file
+import RoadUserInjuriesChart from "@/app/_components/charts/RoadUserInjuryChart";
+import InjuryDonutChart from "@/app/_components/charts/InjuryDonutChart";
+import AiChatInfoCard from "@/app/_components/AIChat";
+
+export const statsData: StatCardProps[] = [
+  {
+    title: 'New Users',
+    value: '1,245',
+    icon: <FaUsers />,
+    change: '8.5%',
+    changeType: 'up',
+  },
+  {
+    title: 'Orders',
+    value: '320',
+    icon: <FaShoppingCart />,
+    change: '3.2%',
+    changeType: 'down',
+  },
+  {
+    title: 'Website Visits',
+    value: '14,203',
+    icon: <FaChartLine />,
+    change: '12.4%',
+    changeType: 'up',
+  },
+  {
+    title: 'Revenue',
+    value: '$9,480',
+    icon: <FaDollarSign />,
+    change: '5.9%',
+    changeType: 'up',
+  },
+];
+
+
+
 export default function LiveMapDashboard() {
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle>(
     dummyFleet[0]
   );
-  
+  const {showMap,showLineChart,showDonutChart,showPieChart} = useDashStore()
   return (
-    <div className=" grid grid-cols-12 gap-4 pt-4 h-dvh overflow-hidden  ">
-      <div className="col-span-3 h-dvh overflow-y-scroll scrollbar-hide space-y-4">
-        <DashboardToggles/>
+    <div className=" grid grid-cols-12 gap-4 pt-4  ">
+      <div className="col-span-3 space-y-4">
 
       <FleetSidebar />
       
       </div>
       <div className="self-start space-y-2 col-span-6 overflow-hidden">
-        <div className="p-2 border    row-span-1   border-gray-200 rounded-lg shadow">
-          <div className="size-full   rounded-xl border-gray-500 overflow-hidden">
-            <MapContainer
-              center={[51.505, -0.09]}
-              zoom={13}
-              className="size-[30rem] z-10 w-[45rem]"
-            >
-              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-              <Marker position={[51.505, -0.09]}>
-                <Popup>
-                  A pretty CSS3 popup. <br /> Easily customizable.
-                </Popup>
-              </Marker>
-            </MapContainer>
-          </div>
+       {showMap && <Map/>}
+       <div className="grid grid-cols-2 gap-4">
+
+       {statsData.map((stat, i) => (
+         <StatsCard key={i} {...stat} />
+        ))}
         </div>
+
+        {showLineChart&&<RoadUserInjuriesChart/>}
+        {showDonutChart&&<InjuryDonutChart/>}
+        <AiChatInfoCard/>
+
+
         
         
       </div>
