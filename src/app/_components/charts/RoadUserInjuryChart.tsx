@@ -20,32 +20,42 @@ const data = [
 ];
 
 const COLORS = {
-  vehicle: '#912020',
-  pedestrian: '#571616',
-  motorcyclist: '#C59218',
-  bicyclist: '#F5B888',
+  vehicle: '#1f77b4',       // Blue
+  pedestrian: '#ff7f0e',    // Orange
+  motorcyclist: '#2ca02c',  // Green
+  bicyclist: '#d62728',     // Red
 };
 
 export default function RoadUserInjuriesChart() {
   return (
-    <div className="w-full bg-white rounded-2xl p-6 shadow-md">
-      <h2 className="text-xl font-semibold mb-4 text-center text-[#571616]">
-        Serious injuries by road user type, 2018–2022
+    <div className="w-full bg-white border border-gray-200 rounded-3xl p-6 shadow ">
+      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 tracking-tight">
+        Serious Injuries by Road User Type (2018–2022)
       </h2>
+
       <div className="h-[400px]">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={data} margin={{ top: 30, right: 20, bottom: 5, left: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="year" stroke="#333" />
+          <LineChart data={data} margin={{ top: 30, right: 30, bottom: 10, left: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+            <XAxis dataKey="year" stroke="#555" tick={{ fontSize: 12 }} />
             <YAxis
+              stroke="#555"
+              tick={{ fontSize: 12 }}
               label={{
-                value: 'Number of serious injuries',
+                value: 'Serious Injuries',
                 angle: -90,
                 position: 'insideLeft',
                 style: { textAnchor: 'middle', fill: '#555', fontSize: 12 },
               }}
             />
-            <Tooltip />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: '#fff',
+                border: '1px solid #ddd',
+                borderRadius: '8px',
+                fontSize: '12px',
+              }}
+            />
             <Legend verticalAlign="top" height={36} />
             <Line
               type="monotone"
@@ -53,7 +63,7 @@ export default function RoadUserInjuriesChart() {
               stroke={COLORS.vehicle}
               strokeWidth={3}
               dot={{ r: 4 }}
-              name="Vehicle occupants"
+              name="Vehicle Occupants"
             />
             <Line
               type="monotone"

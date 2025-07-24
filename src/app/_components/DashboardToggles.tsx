@@ -1,85 +1,80 @@
 'use client';
 
-import { useState } from 'react';
+import { useDashStore } from '@/store/dash-store';
 import {
   FaChartBar,
   FaChartPie,
   FaInfoCircle,
   FaChartLine,
   FaMapMarkedAlt,
-  FaListUl,
   FaBurn,
-  FaDotCircle,
 } from 'react-icons/fa';
+import { GiArtificialHive } from 'react-icons/gi';
 
 export default function DashboardToggles() {
-  const [showStats, setShowStats] = useState(false);
-  const [showBarChart, setShowBarChart] = useState(false);
-  const [showPieChart, setShowPieChart] = useState(false);
-  const [showLineChart, setShowLineChart] = useState(false);
-  const [showDonutChart, setShowDonutChart] = useState(false);
-  const [showMap, setShowMap] = useState(false);
-  const [showHotspots, setShowHotspots] = useState(false);
-  const [showTable, setShowTable] = useState(false);
+  const {
+    showMap,
+    toggleMap,
+    showCumChart,
+    toggleCumChart,
+    showLineChart,
+    toggleLineChart,
+    showBarChart,
+    toggleBarChart,
+    showHotspots,
+    toggleHotspots,
+    showCards,
+    toggleCards,
+    
+    showAI,
+     // Add this to your Zustand store if not already there
+    toggleAI, // Optional: in case you want a separate toggle for AI
+  } = useDashStore();
 
   return (
-    <div className="w-full z-50  col-span-12 space-y-4">
-      {/* Toggle Buttons */}
-      <div className="flex w-full col-span-12 justify-evenly gap-2">
+    <div className="w-full pb-3 z-50 col-span-12 space-y-4">
+      <div className="flex w-full col-span-12 justify-evenly gap-2 flex-wrap">
         <ToggleButton
-          active={showStats}
-          onClick={() => setShowStats(!showStats)}
+          active={showCards}
+          onClick={toggleCards}
           icon={<FaInfoCircle size={12} />}
           label="Stats Overview"
         />
-
-        <ToggleButton
-          active={showBarChart}
-          onClick={() => setShowBarChart(!showBarChart)}
-          icon={<FaChartBar size={12} />}
-          label="Bar Chart"
-        />
-
-        <ToggleButton
-          active={showPieChart}
-          onClick={() => setShowPieChart(!showPieChart)}
-          icon={<FaChartPie size={12} />}
-          label="Pie Chart"
-        />
-
-        <ToggleButton
-          active={showLineChart}
-          onClick={() => setShowLineChart(!showLineChart)}
-          icon={<FaChartLine size={12} />}
-          label="Line Chart"
-        />
-
-        <ToggleButton
-          active={showDonutChart}
-          onClick={() => setShowDonutChart(!showDonutChart)}
-          icon={<FaDotCircle size={12} />}
-          label="Donut Chart"
-        />
-
         <ToggleButton
           active={showMap}
-          onClick={() => setShowMap(!showMap)}
+          onClick={toggleMap}
           icon={<FaMapMarkedAlt size={12} />}
           label="Map View"
         />
-
+        <ToggleButton
+          active={showBarChart}
+          onClick={toggleBarChart}
+          icon={<FaChartBar size={12} />}
+          label="Bar Chart"
+        />
+        <ToggleButton
+          active={showCumChart}
+          onClick={toggleCumChart}
+          icon={<FaChartPie size={12} />}
+          label="Cummulative Chart"
+        />
+        <ToggleButton
+          active={showLineChart}
+          onClick={toggleLineChart}
+          icon={<FaChartLine size={12} />}
+          label="Line Chart"
+        />
         <ToggleButton
           active={showHotspots}
-          onClick={() => setShowHotspots(!showHotspots)}
+          onClick={toggleHotspots}
           icon={<FaBurn size={12} />}
           label="Hotspot Zones"
         />
-
         <ToggleButton
-          active={showTable}
-          onClick={() => setShowTable(!showTable)}
-          icon={<FaListUl size={12} />}
-          label="Detailed Table"
+          active={showAI}
+          onClick={toggleAI} // ← Hook this into your Zustand
+          icon={<GiArtificialHive size={12} />}
+          label="AI Analysis"
         />
       </div>
     </div>
@@ -101,7 +96,9 @@ function ToggleButton({
     <button
       onClick={onClick}
       className={`flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-medium transition ${
-        active ? 'bg-orange-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+        active
+          ? 'bg-orange-500 text-white'
+          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
       }`}
     >
       {icon} {label}

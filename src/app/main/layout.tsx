@@ -11,7 +11,7 @@ function layout({children}:LayoutProps) {
   return (
     <div className=" grid grid-cols-12 ">
       
-<div className="col-span-12 row-span-1 sticky top-0">
+<div className="col-span-12 row-span-1 sticky z-50  top-0">
 
     <Navbar/>
 </div>

@@ -5,9 +5,7 @@ import {
   Pie,
   Cell,
   ResponsiveContainer,
-  Legend,
   Tooltip,
-  Label,
 } from 'recharts';
 import {
   FaMotorcycle,
@@ -17,20 +15,18 @@ import {
 } from 'react-icons/fa';
 
 const data = [
-  { name: 'Vehicle occupants', value: 37, icon: <FaCar /> },
-  { name: 'Pedestrians', value: 35, icon: <FaWalking /> },
-  { name: 'Motorcyclists', value: 27, icon: <FaMotorcycle /> },
-  { name: 'Bicyclists', value: 1, icon: <FaBicycle /> },
+  { name: 'Vehicle occupants', value: 37, icon: <FaCar className="text-blue-600" /> },
+  { name: 'Pedestrians', value: 35, icon: <FaWalking className="text-orange-500" /> },
+  { name: 'Motorcyclists', value: 27, icon: <FaMotorcycle className="text-green-600" /> },
+  { name: 'Bicyclists', value: 1, icon: <FaBicycle className="text-red-500" /> },
 ];
 
-const COLORS = ['#A93226', '#641E16', '#DC9F00', '#F5CBA7'];
+const COLORS = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'];
 
 export default function InjuryDonutChart() {
-  // Total value for percentage calculation
   const total = data.reduce((acc, cur) => acc + cur.value, 0);
 
-  // Custom label for displaying percentage
-  const renderLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }: any) => {
+  const renderLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, index }: any) => {
     const RADIAN = Math.PI / 180;
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -52,48 +48,49 @@ export default function InjuryDonutChart() {
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto bg-white border border-gray-200 rounded-2xl p-6 shadow-md">
-      <h3 className="text-center text-md font-semibold mb-4 text-[#7B241C]">
-        Percentage distribution of serious injuries by road user type, 2022
+    <div className="w-full bg-white border border-gray-200 rounded-3xl p-6 shadow-md">
+      <h3 className="text-center text-lg font-bold mb-6 text-gray-800">
+        Percentage Distribution of Serious Injuries by Road User Type (2022)
       </h3>
 
-      <ResponsiveContainer width="100%" height={300}>
-        <PieChart>
-          <Pie
-            data={data}
-            cx="50%"
-            cy="50%"
-            innerRadius={70}
-            outerRadius={100}
-            paddingAngle={1}
-            dataKey="value"
-            labelLine={false}
-            label={renderLabel}
-          >
-            {data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-          </Pie>
-          <Tooltip formatter={(value: number) => `${value} incidents`} />
-          <Legend
-            layout="vertical"
-            verticalAlign="middle"
-            align="right"
-            iconType="circle"
-            formatter={(value: string, entry) => {
-              const item = data.find((d) => d.name === value);
-              return (
-                <span className="flex flex-col items-center  text-sm text-gray-700">
-                  {item?.icon} {value}
-                </span>
-              );
-            }}
-          />
-        </PieChart>
-      </ResponsiveContainer>
+      <div className="flex flex-col justify-center items-center gap-6">
+        {/* Chart */}
+        <div className="w-full md:w-[300px] h-[300px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Pie
+                data={data}
+                cx="50%"
+                cy="50%"
+                innerRadius={70}
+                outerRadius={100}
+                paddingAngle={1}
+                dataKey="value"
+                labelLine={false}
+                label={renderLabel}
+              >
+                {data.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                ))}
+              </Pie>
+              <Tooltip formatter={(value: number) => `${value} incidents`} />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Custom Legend */}
+        <ul className="grid grid-cols-2 gap-3 space-y-1">
+          {data.map((item, index) => (
+            <li key={item.name} className="flex items-center gap-3 text-sm text-gray-700">
+              <span className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS[index] }} />
+              <span className="flex items-center gap-2">
+                {item.icon}
+                <span>{item.name}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

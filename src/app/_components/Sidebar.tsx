@@ -17,9 +17,9 @@ import clsx from 'clsx';
 
 const navItems = [
   { icon: MdOutlineDashboard, href: '/dashboard' },
-  { icon: MdOutlineMap, href: '/maps' },
-  {icon: GiArtificialHive , href: '/ai'},
-  { icon: MdOutlineSettings, href: '/settings' },
+  { icon: MdOutlineMap, href: 'maps' },
+  {icon: GiArtificialHive , href: 'ai'},
+  { icon: MdOutlineSettings, href: 'settings' },
 ];
 
 export default function Sidebar() {

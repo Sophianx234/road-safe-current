@@ -1,34 +1,51 @@
 import { create } from "zustand";
 
-export type dashstoreProps = {
+export type DashStoreProps = {
   showMap: boolean;
-  setShowMap: (value: boolean) => void;
+  toggleMap: () => void;
+
   showTable: boolean;
-  setShowTable: (value: boolean) => void;
-  showPieChart: boolean;
-  setShowPieChart: (value: boolean) => void;
+  toggleTable: () => void;
+
+  showCumChart: boolean;
+  toggleCumChart: () => void;
+
   showLineChart: boolean;
-  setShowLineChart: (value: boolean) => void;
-  showDonutChart: boolean;
-  setShowDonutChart: (value: boolean) => void;
+  toggleLineChart: () => void;
+
+  showBarChart: boolean;
+  toggleBarChart: () => void;
+
   showHotspots: boolean;
-  setShowHotspots: (value: boolean) => void;
+  toggleHotspots: () => void;
+
   showCards: boolean;
-  setShowCards: (value: boolean) => void;
+  toggleCards: () => void;
+  showAI: boolean;
+  toggleAI: () => void;
 };
-export const useDashStore = create<dashstoreProps>((set) => ({
+
+export const useDashStore = create<DashStoreProps>((set) => ({
   showMap: false,
-  setShowMap: (value) => set({ showMap: value }),
+  toggleMap: () => set((state) => ({ showMap: !state.showMap })),
+
   showTable: false,
-  setShowTable: (value) => set({ showTable: value }),
-  showPieChart: false,
-  setShowPieChart: (value) => set({ showPieChart: value }),
+  toggleTable: () => set((state) => ({ showTable: !state.showTable })),
+
+  showCumChart: false,
+  toggleCumChart: () => set((state) => ({ showCumChart: !state.showCumChart })),
+
   showLineChart: false,
-  setShowLineChart: (value) => set({ showLineChart: value }),
-  showDonutChart: false,
-  setShowDonutChart: (value) => set({ showDonutChart: value }),
+  toggleLineChart: () => set((state) => ({ showLineChart: !state.showLineChart })),
+
+  showBarChart: false,
+  toggleBarChart: () => set((state) => ({ showBarChart: !state.showBarChart })),
+
   showHotspots: false,
-  setShowHotspots: (value) => set({ showHotspots: value }),
+  toggleHotspots: () => set((state) => ({ showHotspots: !state.showHotspots })),
+
   showCards: false,
-  setShowCards: (value) => set({ showCards: value }),
+  toggleCards: () => set((state) => ({ showCards: !state.showCards })),
+  showAI: false,
+  toggleAI: () => set((state) => ({ showCards: !state.showAI })),
 }));
