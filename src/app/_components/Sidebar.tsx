@@ -23,7 +23,7 @@ export default function Sidebar() {
   console.log(pathname)
 
   return (
-    <aside className="px-4 bg-white flex flex-col items-center py-6 shadow-md fixed top-20 left-0 my-2 inset-y-0 border border-gray-200">
+    <aside className="px-4  bg-white flex flex-col items-center py-6 shadow-md fixed top-20 left-0 my-2 inset-y-0 border border-gray-200">
       {/* Navigation Icons */}
       <nav className="flex flex-col gap-6">
         {navItems.map(({ icon: Icon, href }) => {
