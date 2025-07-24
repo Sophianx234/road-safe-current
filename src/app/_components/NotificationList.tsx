@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Notification from './Notification';
 import { FaBell, FaTimes, FaTrash } from 'react-icons/fa';
+import { useDashStore } from '@/store/dash-store';
 
 type NotificationItem = {
   id: string;
@@ -35,7 +36,7 @@ const initialNotifications: NotificationItem[] = [
 export default function NotificationList() {
   const [notifications, setNotifications] = useState(initialNotifications);
   const [isVisible, setIsVisible] = useState(true);
-
+  const {showNotifications,toggleNotifications} = useDashStore();
   const handleClose = (id: string) => {
     setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
@@ -44,7 +45,7 @@ export default function NotificationList() {
     setNotifications([]);
   };
 
-  if (!isVisible) return null;
+  if (!showNotifications) return null;
 
   return (
     <div className="fixed top-20 right-3 w-72 max-w-md bg-white border border-gray-200 rounded-lg shadow-md px-4 py-4 space-y-3">
@@ -55,7 +56,7 @@ export default function NotificationList() {
           Notifications
         </div>
         <button
-          onClick={() => setIsVisible(false)}
+          onClick={toggleNotifications}
           className="text-gray-400 hover:text-gray-600 text-xs"
           title="Close Panel"
         >

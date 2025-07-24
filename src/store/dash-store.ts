@@ -23,6 +23,8 @@ export type DashStoreProps = {
   toggleCards: () => void;
   showAI: boolean;
   toggleAI: () => void;
+  showNotifications: boolean;
+  toggleNotifications: () => void;  
 };
 
 export const useDashStore = create<DashStoreProps>((set) => ({
@@ -47,5 +49,8 @@ export const useDashStore = create<DashStoreProps>((set) => ({
   showCards: false,
   toggleCards: () => set((state) => ({ showCards: !state.showCards })),
   showAI: false,
-  toggleAI: () => set((state) => ({ showCards: !state.showAI })),
+  toggleAI: () => set((state) => ({ showAI: !state.showAI })),
+  showNotifications: false,
+  toggleNotifications: () => set((state) => ({ showNotifications: !state.showNotifications })),
+
 }));
