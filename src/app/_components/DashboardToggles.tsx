@@ -32,7 +32,7 @@ export default function DashboardToggles() {
   } = useDashStore();
 
   return (
-    <div className="w-full pb-3 z-50 col-span-12 space-y-4">
+    <div className="w-full pb-3 z-40 col-span-12 space-y-4">
       <div className="flex w-full col-span-12 justify-evenly gap-2 flex-wrap">
         <ToggleButton
           active={showCards}

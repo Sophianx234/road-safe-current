@@ -1,12 +1,19 @@
-import { ReactNode } from "react";
+'use server'
+import { ReactNode, useEffect } from "react";
 import Navbar from "../_components/Navbar";
 import NotificationList from "../_components/NotificationList";
 import Sidebar from "../_components/Sidebar";
+import { getAllAccidents } from "@/api/actions";
 
 type LayoutProps = {
   children: ReactNode;
 }
-function layout({children}:LayoutProps) {
+async function layout({children}:LayoutProps) {
+
+  
+  const res = await getAllAccidents() 
+ const data = await res.json();
+ console.log("Accidents Data:", data);
 
   return (
     <div className=" grid grid-cols-12 ">
@@ -23,6 +30,7 @@ function layout({children}:LayoutProps) {
     <main className="flex relative z-20  pr-6 col-start-2 col-span-11 row-span-12  overflow-y-auto ">
       
       <NotificationList/>
+      
 
 
       {children}

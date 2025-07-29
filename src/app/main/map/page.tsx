@@ -60,6 +60,8 @@ import { RadarChartComponent } from "@/app/_components/charts/RadarChart";
 import HotspotStats from "@/app/_components/HotspotStats";
 import RoadAccidentStatsTable from "@/app/_components/charts/RoadAccidentStatsTable";
 import { PieChartComponent } from "@/app/_components/charts/PieChart";
+import { GiArtificialHive } from "react-icons/gi";
+import Link from "next/link";
 
 const statsData: StatCardProps[] = [
   {
@@ -110,7 +112,7 @@ export default function LiveMapDashboard() {
     showCards,
   } = useDashStore();
   return (
-    <>
+    <div className="relative">
       <div className=" grid grid-cols-12 -z-40 gap-4 pt-4  ">
         <DashboardToggles />
 
@@ -133,8 +135,13 @@ export default function LiveMapDashboard() {
         <div className="self-start col-span-3 space-y-5">
           <FleetFilter />
         </div>
+
       </div>
-    </>
+      <Link href='/main/ai' className="fixed right-4 shadow-md bottom-4 p-2 border border-gray-200 rounded-full hover:scale-110 transition-all hover:border-orange-500 bg-white flex items-center justify-center  ">
+
+      <GiArtificialHive size={24} />
+      </Link>
+    </div>
   );
 }
 

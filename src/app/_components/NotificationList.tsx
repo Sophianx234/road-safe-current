@@ -48,7 +48,7 @@ export default function NotificationList() {
   if (!showNotifications) return null;
 
   return (
-    <div className="fixed top-20 right-3 w-72 max-w-md bg-white border border-gray-200 rounded-lg shadow-md px-4 py-4 space-y-3">
+    <div className="fixed z-50 top-20 right-3 w-72 max-w-md bg-white border border-gray-200 rounded-lg shadow-md px-4 py-4 space-y-3">
       {/* Header */}
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2 text-gray-800 font-semibold text-sm">
