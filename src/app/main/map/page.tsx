@@ -38,30 +38,20 @@ const tripRoute: [number, number][] = [
 ];
 
 import {
-  FaChartLine,
-  FaDollarSign,
-  FaShoppingCart,
-  FaUserInjured,
-  FaUsers,
+  FaUserInjured
 } from "react-icons/fa";
 
-import { StatCardProps } from "./StatsCard"; // If it's in a separate file
-import RoadUserInjuriesChart from "@/app/_components/charts/RoadUserInjuryChart";
-import InjuryDonutChart from "@/app/_components/charts/InjuryDonutChart";
 import AiChatInfoCard from "@/app/_components/AIChat";
+import RoadUserInjuriesChart from "@/app/_components/charts/RoadUserInjuryChart";
+import { StatCardProps } from "./StatsCard"; // If it's in a separate file
 
-import { FaCarCrash, FaSkullCrossbones, FaAmbulance } from "react-icons/fa";
-import RoadSafetyStatCard from "./RoadSafetyStatCard";
 import DashboardToggles from "@/app/_components/DashboardToggles";
-import { RadialChartComponent } from "@/app/_components/charts/RadialChart";
+import HotspotStats from "@/app/_components/HotspotStats";
 import { BarChartComponent } from "@/app/_components/charts/BarChat";
 import { LineChartComponent } from "@/app/_components/charts/LineChart";
-import { RadarChartComponent } from "@/app/_components/charts/RadarChart";
-import HotspotStats from "@/app/_components/HotspotStats";
-import RoadAccidentStatsTable from "@/app/_components/charts/RoadAccidentStatsTable";
-import { PieChartComponent } from "@/app/_components/charts/PieChart";
-import { GiArtificialHive } from "react-icons/gi";
 import Link from "next/link";
+import { FaAmbulance, FaCarCrash, FaSkullCrossbones } from "react-icons/fa";
+import { GiArtificialHive } from "react-icons/gi";
 
 const statsData: StatCardProps[] = [
   {
@@ -135,11 +125,12 @@ export default function LiveMapDashboard() {
         <div className="self-start col-span-3 space-y-5">
           <FleetFilter />
         </div>
-
       </div>
-      <Link href='/main/ai' className="fixed right-4 shadow-md bottom-4 p-2 border border-gray-200 rounded-full hover:scale-110 transition-all hover:border-orange-500 bg-white flex items-center justify-center  ">
-
-      <GiArtificialHive size={24} />
+      <Link
+        href="/main/ai"
+        className="fixed right-4 shadow-md bottom-4 p-2 border border-gray-200 rounded-full hover:scale-110 transition-all hover:border-orange-500 bg-white flex items-center justify-center  "
+      >
+        <GiArtificialHive size={24} />
       </Link>
     </div>
   );

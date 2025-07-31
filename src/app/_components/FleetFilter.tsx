@@ -1,69 +1,123 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 import {
-  FaFilter,
+  FaBus,
   FaCar,
+  FaCarCrash,
+  FaExclamationTriangle,
+  FaFilter,
+  FaMapMarkerAlt,
   FaMotorcycle,
+  FaTaxi,
   FaTruck,
   FaTruckMoving,
-  FaMapMarkerAlt,
-  FaExclamationTriangle,
-  FaCarCrash,
-} from 'react-icons/fa';
+} from "react-icons/fa";
 
-const years = ['2021', '2022', '2023', '2024'];
+const years = ["2021", "2022", "2023", "2024"];
 
 const types = [
-  { label: 'All', value: '', icon: <FaFilter /> },
-  { label: 'Car', value: 'car', icon: <FaCar /> },
-  { label: 'Truck', value: 'truck', icon: <FaTruck /> },
-  { label: 'Motorbike', value: 'bike', icon: <FaMotorcycle /> },
-  { label: 'Long Vehicle', value: 'long-vehicle', icon: <FaTruckMoving /> },
+  { label: "All", value: "", icon: <FaFilter /> },
+  { label: "Car", value: "car", icon: <FaCar /> },
+  { label: "Truck", value: "truck", icon: <FaTruck /> },
+  { label: "Motorbike", value: "bike", icon: <FaMotorcycle /> },
+  { label: "Bus", value: "bus", icon: <FaBus /> },
+  { label: "Taxi", value: "taxi", icon: <FaTaxi /> },
+  { label: "Long Vehicle", value: "long-vehicle", icon: <FaTruckMoving /> },
 ];
 
-const accidentTypes = ['All', 'Collision', 'Overturning', 'Pedestrian Knockdown', 'Hit and Run'];
-const regions = ['All', 'North', 'South', 'East', 'West'];
-const severities = ['All', 'Low', 'Medium', 'High'];
+
+const accidentTypes = [
+  "All",
+  "collision",
+  "pedestrian knockdown",
+  "overturn",
+  "run-off-road",
+  "hit and run",
+  "fire"
+];
+ 
+const regions = [
+  "All",
+  "ahafo",
+  "ashanti",
+  "bono",
+  "bono east",
+  "central",
+  "eastern",
+  "greater accra",
+  "north east",
+  "northern",
+  "oti",
+  "savannah",
+  "upper east",
+  "upper west",
+  "volta",
+  "western",
+  "western north",
+];
+
+const severities = ["All", "fatal", "serious", "minor"];
+
+export type FilterFields = {
+  year: string;
+  vehicleType: string;
+  accidentType: string;
+  region: string;
+  severity: string;
+};
 
 export default function FleetFilter({
   onFilterChange,
 }: {
-  onFilterChange?: (filters: {
-    year: string;
-    type: string;
-    accidentType: string;
-    region: string;
-    severity: string;
-  }) => void;
+  onFilterChange?: (filters: FilterFields) => void;
 }) {
-  const [year, setYear] = useState('');
-  const [type, setType] = useState('');
-  const [accidentType, setAccidentType] = useState('');
-  const [region, setRegion] = useState('');
-  const [severity, setSeverity] = useState('');
+  const { register, handleSubmit, setValue, watch, reset } =
+    useForm<FilterFields>({
+      defaultValues: {
+        year: "",
+        vehicleType: "",
+        accidentType: "",
+        region: "",
+        severity: "",
+      },
+    });
+  const router = useRouter();
 
-  const handleFilterChange = () => {
-    onFilterChange?.({ year, type, accidentType, region, severity });
-  };
+  const selectedType = watch("vehicleType");
+const onSubmit = async (data: FilterFields) => {
+  console.log("Selected Filters:", data);
+
+  const res = await fetch("/api/accidents", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  const result = await res.json();
+  console.log("Filtered Accidents:", result);
+};
 
   const clearFilters = () => {
-    setYear('');
-    setType('');
-    setAccidentType('');
-    setRegion('');
-    setSeverity('');
-    handleFilterChange();
+    reset();
+    router.push("?");
   };
 
   return (
-    <div className="w-full bg-white rounded-2xl border border-gray-200 shadow-sm p-5 space-y-5">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-full bg-white rounded-2xl border border-gray-200 shadow-sm p-5 space-y-5"
+    >
       {/* Header */}
       <div className="flex items-center justify-between mb-1">
         <h2 className="text-base font-semibold text-gray-700 flex items-center gap-2">
           <FaFilter className="text-black" /> Filters
         </h2>
         <button
+          type="button"
           onClick={clearFilters}
           className="text-sm text-red-500 hover:underline"
         >
@@ -75,8 +129,7 @@ export default function FleetFilter({
       <div>
         <label className="block text-xs text-gray-500 mb-1">Year</label>
         <select
-          value={year}
-          onChange={(e) => setYear(e.target.value)}
+          {...register("year")}
           className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
         >
           <option value="">Select Year</option>
@@ -95,11 +148,12 @@ export default function FleetFilter({
           {types.map((item) => (
             <button
               key={item.value}
-              onClick={() => setType(item.value)}
+              type="button"
+              onClick={() => setValue("vehicleType", item.value)}
               className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium border transition ${
-                type === item.value
-                  ? 'bg-orange-500 text-white border-orange-500'
-                  : 'bg-gray-50 text-gray-700 hover:bg-orange-100 border-gray-300'
+                selectedType === item.value
+                  ? "bg-orange-500 text-white border-orange-500"
+                  : "bg-gray-50 text-gray-700 hover:bg-orange-100 border-gray-300"
               }`}
             >
               {item.icon} {item.label}
@@ -114,12 +168,11 @@ export default function FleetFilter({
           <FaCarCrash className="text-gray-500" /> Accident Type
         </label>
         <select
-          value={accidentType}
-          onChange={(e) => setAccidentType(e.target.value)}
+          {...register("accidentType")}
           className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
         >
           {accidentTypes.map((type) => (
-            <option key={type} value={type === 'All' ? '' : type.toLowerCase()}>
+            <option key={type} value={type === "All" ? "" : type.toLowerCase()}>
               {type}
             </option>
           ))}
@@ -132,12 +185,11 @@ export default function FleetFilter({
           <FaMapMarkerAlt className="text-gray-400" /> Region
         </label>
         <select
-          value={region}
-          onChange={(e) => setRegion(e.target.value)}
+          {...register("region")}
           className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
         >
           {regions.map((r) => (
-            <option key={r} value={r === 'All' ? '' : r.toLowerCase()}>
+            <option key={r} value={r === "All" ? "" : r.toLowerCase()}>
               {r}
             </option>
           ))}
@@ -150,12 +202,11 @@ export default function FleetFilter({
           <FaExclamationTriangle className="text-gray-400" /> Severity
         </label>
         <select
-          value={severity}
-          onChange={(e) => setSeverity(e.target.value)}
+          {...register("severity")}
           className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
         >
           {severities.map((s) => (
-            <option key={s} value={s === 'All' ? '' : s.toLowerCase()}>
+            <option key={s} value={s === "All" ? "" : s.toLowerCase()}>
               {s}
             </option>
           ))}
@@ -165,12 +216,12 @@ export default function FleetFilter({
       {/* Apply Button */}
       <div>
         <button
-          onClick={handleFilterChange}
+          type="submit"
           className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg font-semibold text-sm transition"
         >
           Apply Filters
         </button>
       </div>
-    </div>
+    </form>
   );
 }

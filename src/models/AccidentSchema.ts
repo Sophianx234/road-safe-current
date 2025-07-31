@@ -18,7 +18,7 @@ export interface IAccident extends Document {
   description?: string;
 }
 
-const AccidentSchema = new Schema<IAccident>(
+const AccidentSchema =  new Schema<IAccident>(
   {
     date: {
       type: String,
@@ -45,17 +45,17 @@ const AccidentSchema = new Schema<IAccident>(
     vehicleType: {
       type: String,
       required: true,
-      enum: ["Private Car", "Motorcycle", "Truck", "Bus", "Taxi"],
+      enum: ["car", "bike", "truck", "bus", "taxi","long-vehicle"],
     },
     accidentType: {
       type: String,
       required: true,
-      enum: ["Collision", "Pedestrian Knockdown", "Overturn", "Run-off-road", "Fire"],
+      enum: ["collision", "pedestrian knockdown", "overturn", "run-off-road", "fire"],
     },
     severity: {
       type: String,
       required: true,
-      enum: ["Fatal", "Serious", "Minor"],
+      enum: ["fatal", "serious", "minor"],
     },
     fatalities: {
       type: Number,
@@ -75,5 +75,6 @@ const AccidentSchema = new Schema<IAccident>(
 );
 
 const Accident = models.Accident || model<IAccident>("Accident", AccidentSchema);
-
 export default Accident;
+
+
