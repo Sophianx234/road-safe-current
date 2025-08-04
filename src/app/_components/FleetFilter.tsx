@@ -1,7 +1,9 @@
 "use client";
 
+import { useDashStore } from "@/store/dash-store";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import {toast, Toaster} from 'react-hot-toast'
 import {
   FaBus,
   FaCar,
@@ -83,11 +85,13 @@ export default function FleetFilter({
         severity: "",
       },
     });
+    const {setAccidents} = useDashStore();
   const router = useRouter();
 
   const selectedType = watch("vehicleType");
 const onSubmit = async (data: FilterFields) => {
   console.log("Selected Filters:", data);
+  toast.loading("Fetching data...");
 
   const res = await fetch("/api/accidents", {
     method: "POST",
@@ -98,7 +102,15 @@ const onSubmit = async (data: FilterFields) => {
   });
 
   const result = await res.json();
-  console.log("Filtered Accidents:", result);
+  if(res.ok){
+    toast.dismiss();
+    toast.success("Data fetched successfully!");
+    console.log("Filtered Accidents:", result);
+    setAccidents(result.accidents);
+  }else{
+    toast.dismiss();
+    toast.error("Failed to fetch data: " + result.message);
+  }
 };
 
   const clearFilters = () => {
@@ -222,6 +234,7 @@ const onSubmit = async (data: FilterFields) => {
           Apply Filters
         </button>
       </div>
+      <Toaster position="bottom-center"/>
     </form>
   );
 }

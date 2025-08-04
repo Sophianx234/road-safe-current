@@ -1,5 +1,20 @@
 import { create } from "zustand";
 
+export type accidentTpe ={
+    location: {
+        lat: number,
+        lng: number
+    },
+    date: string,
+    year: number,
+    region: string,
+    vehicleType: string,
+    accidentType: string,
+    severity: string,
+    fatalities: number,
+    injuries: number,
+    description: string
+}
 export type DashStoreProps = {
   showMap: boolean;
   toggleMap: () => void;
@@ -25,6 +40,8 @@ export type DashStoreProps = {
   toggleAI: () => void;
   showNotifications: boolean;
   toggleNotifications: () => void;  
+  accidents: accidentTpe[];
+  setAccidents: (accidents: accidentTpe[]) => void;
 };
 
 export const useDashStore = create<DashStoreProps>((set) => ({
@@ -52,5 +69,7 @@ export const useDashStore = create<DashStoreProps>((set) => ({
   toggleAI: () => set((state) => ({ showAI: !state.showAI })),
   showNotifications: false,
   toggleNotifications: () => set((state) => ({ showNotifications: !state.showNotifications })),
+  accidents: [],
+  setAccidents: (accidents) => set(() => ({ accidents })),
 
 }));
