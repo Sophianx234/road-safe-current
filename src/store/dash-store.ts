@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
-export type accidentTpe ={
+export type accidentType ={
+  _id:string
     location: {
         lat: number,
         lng: number
@@ -40,8 +41,8 @@ export type DashStoreProps = {
   toggleAI: () => void;
   showNotifications: boolean;
   toggleNotifications: () => void;  
-  accidents: accidentTpe[];
-  setAccidents: (accidents: accidentTpe[]) => void;
+  accidents: accidentType[];
+  setAccidents: (accidents: accidentType[]) => void;
 };
 
 export const useDashStore = create<DashStoreProps>((set) => ({

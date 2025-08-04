@@ -63,6 +63,7 @@ const regions = [
 const severities = ["All", "fatal", "serious", "minor"];
 
 export type FilterFields = {
+  
   year: string;
   vehicleType: string;
   accidentType: string;
