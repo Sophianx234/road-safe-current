@@ -11,6 +11,7 @@ import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import { MdOutlineGpsFixed } from "react-icons/md";
 import { useState } from "react";
+import { MapClickHandler } from "./MapClickHandler";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -54,7 +55,7 @@ export  function Map() {
     pathOptions={{
       color: getSeverityColor(accident.severity),
       fillColor: getSeverityColor(accident.severity),
-      fillOpacity: 0.4,
+      fillOpacity: 0.2,
     }}
   >
      <Popup>
@@ -69,9 +70,10 @@ export  function Map() {
 ))}
 
               <LocationMarker trigger={useLocation}/>
+              <MapClickHandler/>
               
         </MapContainer>
-      <div onClick={()=>setUseLocation(state=>!state)} className="rounded-full p-1 right-2 absolute bottom-2 hover:scale-110 duration-150 border border-gray-200  bg-white z-50 shadow">
+      <div onClick={()=>setUseLocation(state=>!state)} className="rounded-full p-1 right-2 absolute top-2 hover:scale-110 duration-150 border border-gray-200  bg-white z-50 shadow">
         <MdOutlineGpsFixed className="size-5 text-gray-500  "/>
         </div>
       </div>

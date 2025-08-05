@@ -15,11 +15,11 @@ export async function POST(req: NextRequest) {
     const query: any = {};
 
     if (year && year !== "All") query.year = parseInt(year);
-    if (vehicleType && vehicleType !== "All") query.vehicleType = vehicleType;
-    if (accidentType && accidentType !== "All") query.accidentType = accidentType;
-    if (region && region !== "All") query.region = region;
-    if (severity && severity !== "All") query.severity = severity;
-    console.log('query',query)
+    if (vehicleType) query.vehicleType = vehicleType;
+    if (accidentType) query.accidentType = accidentType;
+    if (region) query.region = region;
+    if (severity) query.severity = severity;
+    console.log('query ---',query)
     const accidents = await Accident.find(query);
     return NextResponse.json({ accidents }, { status: 200 });
 

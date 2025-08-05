@@ -1,15 +1,16 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
-type RoadSafetyStatCardProps = {
+export type RoadSafetyStatCardProps = {
   title: string;
-  value: string;
+  value: number;
+
   icon?: ReactNode;
   change: string;
-  changeType: 'up' | 'down';
+  changeType: "up" | "down"| string;
   description?: string;
 };
 
-export default function RoadSafetyStatCard({
+export default function StatsCard({
   title,
   value,
   icon,
@@ -28,12 +29,12 @@ export default function RoadSafetyStatCard({
         <h2 className="text-3xl font-bold text-gray-800">{value}</h2>
         <span
           className={`text-xs font-semibold px-2 py-1 rounded-full ${
-            changeType === 'up'
-              ? 'bg-red-100 text-red-700'
-              : 'bg-green-100 text-green-700'
+            changeType === "up"
+              ? "bg-red-100 text-red-700"
+              : "bg-green-100 text-green-700"
           }`}
         >
-          {changeType === 'up' ? '▲' : '▼'} {change}
+          {changeType === "up" ? "▲" : "▼"} {change}
         </span>
       </div>
 

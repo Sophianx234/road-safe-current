@@ -20,7 +20,6 @@ import {
 const years = ["2021", "2022", "2023", "2024"];
 
 const types = [
-  { label: "All", value: "", icon: <FaFilter /> },
   { label: "Car", value: "car", icon: <FaCar /> },
   { label: "Truck", value: "truck", icon: <FaTruck /> },
   { label: "Motorbike", value: "bike", icon: <FaMotorcycle /> },
@@ -31,7 +30,6 @@ const types = [
 
 
 const accidentTypes = [
-  "All",
   "collision",
   "pedestrian knockdown",
   "overturn",
@@ -60,10 +58,10 @@ const regions = [
   "western north",
 ];
 
-const severities = ["All", "fatal", "serious", "minor"];
+const severities = [ "fatal", "serious", "minor"];
 
 export type FilterFields = {
-  
+
   year: string;
   vehicleType: string;
   accidentType: string;
@@ -86,12 +84,16 @@ export default function FleetFilter({
         severity: "",
       },
     });
-    const {setAccidents} = useDashStore();
+    const {setAccidents,setAccidentYear} = useDashStore();
   const router = useRouter();
 
   const selectedType = watch("vehicleType");
 const onSubmit = async (data: FilterFields) => {
   console.log("Selected Filters:", data);
+  if(!data.year || !data.severity || !data.accidentType ){
+    toast.error("Please select filters before applying.");
+    return;
+  }
   toast.loading("Fetching data...");
 
   const res = await fetch("/api/accidents", {
@@ -107,6 +109,7 @@ const onSubmit = async (data: FilterFields) => {
     toast.dismiss();
     toast.success("Data fetched successfully!");
     console.log("Filtered Accidents:", result);
+    setAccidentYear(data.year)
     setAccidents(result.accidents);
   }else{
     toast.dismiss();
@@ -184,10 +187,13 @@ const onSubmit = async (data: FilterFields) => {
           {...register("accidentType")}
           className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
         >
+          <option value="">accident type</option>
           {accidentTypes.map((type) => (
-            <option key={type} value={type === "All" ? "" : type.toLowerCase()}>
+            
+            <option key={type} value={ type.toLowerCase()}>
               {type}
             </option>
+            
           ))}
         </select>
       </div>
@@ -202,7 +208,7 @@ const onSubmit = async (data: FilterFields) => {
           className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
         >
           {regions.map((r) => (
-            <option key={r} value={r === "All" ? "" : r.toLowerCase()}>
+            <option key={r} value={r==='All'?'':r.toLowerCase()}>
               {r}
             </option>
           ))}
@@ -218,6 +224,7 @@ const onSubmit = async (data: FilterFields) => {
           {...register("severity")}
           className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
         >
+          <option value="">Select severity</option>
           {severities.map((s) => (
             <option key={s} value={s === "All" ? "" : s.toLowerCase()}>
               {s}

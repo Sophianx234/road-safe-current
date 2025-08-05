@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type accidentType ={
+export type accidentType = {
   _id:string
     location: {
         lat: number,
@@ -43,6 +43,14 @@ export type DashStoreProps = {
   toggleNotifications: () => void;  
   accidents: accidentType[];
   setAccidents: (accidents: accidentType[]) => void;
+  accidentYear: string |null;
+  setAccidentYear: (year: string) => void;
+  latlng:{
+    lat: number;
+    lng: number;  
+  }|null,
+  setLatLng: (latlng: { lat: number; lng: number }) => void;
+  currentYearStats: null 
 };
 
 export const useDashStore = create<DashStoreProps>((set) => ({
@@ -72,5 +80,10 @@ export const useDashStore = create<DashStoreProps>((set) => ({
   toggleNotifications: () => set((state) => ({ showNotifications: !state.showNotifications })),
   accidents: [],
   setAccidents: (accidents) => set(() => ({ accidents })),
+  latlng: null,
+  setLatLng: (latlng) => set(() => ({ latlng })),
+  accidentYear: null,
+  setAccidentYear: (year) => set(() => ({ accidentYear: year })), 
+  currentYearStats: null,
 
 }));
