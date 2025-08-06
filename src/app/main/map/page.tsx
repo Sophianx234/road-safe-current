@@ -38,7 +38,7 @@ const tripRoute: [number, number][] = [
 
 
 import AiChatInfoCard from "@/app/_components/AIChat";
-import RoadUserInjuriesChart from "@/app/_components/charts/RoadUserInjuryChart";
+import { ChartBarLabel } from "@/app/_components/charts/ChartBarLabel";
 
 import DashboardToggles from "@/app/_components/DashboardToggles";
 import HotspotStats from "@/app/_components/HotspotStats";
@@ -77,12 +77,12 @@ export default function LiveMapDashboard() {
               <StatCardsList/>}
           
           {showHotspots && <HotspotStats />}
-          {!showMap && <Map />}
-
-          {showLineChart && <RoadUserInjuriesChart />}
+          {showLineChart && <ChartBarLabel/>}
           {showBarChart && <BarChartComponent />}
           {showCumChart && <LineChartComponent />}
+          {!showMap && <Map />}
           {showAI && <AiChatInfoCard />}
+
         </div>
         <div className="self-start col-span-3 space-y-5">
           <FleetFilter />

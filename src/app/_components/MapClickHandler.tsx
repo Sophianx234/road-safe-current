@@ -1,7 +1,6 @@
 'use client'
 import { useDashStore } from '@/store/dash-store';
-import { set } from 'mongoose';
-import { useMapEvents } from 'react-leaflet'
+import { useMapEvents } from 'react-leaflet';
 
 export function MapClickHandler() {
   const {setLatLng} = useDashStore();
