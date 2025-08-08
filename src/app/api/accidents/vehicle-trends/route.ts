@@ -5,11 +5,12 @@ import { connectDB } from "@/lib/connectDB"
 import Accident from "@/models/AccidentSchema"
 
 export async function GET() {
-  await connectDB()
-
+  
   try {
+    await connectDB()
+    const yearsToInclude = [2024, 2022, 2023];
     const result = await Accident.aggregate([
-      { $match: { severity: "fatal" } },
+      { $match: { severity: "fatal", year: { $in: yearsToInclude } } },
       {
         $group: {
           _id: {

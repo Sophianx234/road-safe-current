@@ -47,6 +47,7 @@ import { BarChartComponent } from "@/app/_components/charts/BarChat";
 import { LineChartComponent } from "@/app/_components/charts/LineChart";
 import Link from "next/link";
 import { GiArtificialHive } from "react-icons/gi";
+import { ChartBarLabelSkeleton } from "../../../../skeletons/ChartBarLabelSkeleton";
 
 
 export default function LiveMapDashboard() {
@@ -77,6 +78,7 @@ export default function LiveMapDashboard() {
               <StatCardsList/>}
           
           {showHotspots && <HotspotStats />}
+          
           {showLineChart && <ChartBarLabel/>}
           {showBarChart && <BarChartComponent />}
           {showCumChart && <LineChartComponent />}

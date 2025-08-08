@@ -4,27 +4,22 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
-  LabelList,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
+  YAxis,
 } from "recharts"
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart"
 import { useEffect, useState } from "react"
-import { TrendingUp } from "lucide-react"
+import { ChartBarLabelSkeleton } from "../../../../skeletons/ChartBarLabelSkeleton"
 
-const chartConfig: ChartConfig = {
+const chartConfig = {
   car: { label: "Car", color: "var(--chart-1)" },
   bus: { label: "Bus", color: "var(--chart-2)" },
   bike: { label: "Bike", color: "var(--chart-3)" },
@@ -35,59 +30,51 @@ const chartConfig: ChartConfig = {
 
 export function ChartBarLabel() {
   const [chartData, setChartData] = useState<any[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
+    
     const fetchData = async () => {
-      const res = await fetch("/api/accidents/fatal-by-vehicle")
-      const { data } = await res.json()
-      setChartData(data)
+        try{
+        setIsLoading(true)
+        const res = await fetch("/api/accidents/vehicle-trends")
+        if(res.ok){
+          
+          const { data } = await res.json()
+          setChartData(data)
+        }
+      }catch(err){
+        console.error("Error fetching vehicle trends data:", err)
+      }finally{
+        setIsLoading(false)
+      }
     }
     fetchData()
   }, [])
-
+if(isLoading) return <ChartBarLabelSkeleton />
+if(!isLoading)
   return (
-    <Card>
+    <Card className="w-full border border-gray-200">
       <CardHeader>
         <CardTitle>Fatal Accidents by Vehicle Type</CardTitle>
-        <CardDescription>Grouped by Year</CardDescription>
       </CardHeader>
-
       <CardContent>
-        <ChartContainer config={chartConfig}>
-          <BarChart data={chartData} margin={{ top: 20 }}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="year"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
-            {Object.keys(chartConfig).map((key) => (
-              <Bar
-                key={key}
-                dataKey={key}
-                fill={`var(--color-${key})`}
-                radius={8}
-              >
-                <LabelList position="top" offset={12} className="fill-foreground" fontSize={12} />
-              </Bar>
-            ))}
+        <ResponsiveContainer width="100%" height={400}>
+          <BarChart data={chartData} margin={{ top: 20, right: 30, left: 0, bottom: 20 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="year" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="taxi" fill="#f97316" />
+            <Bar dataKey="bike" fill="#10b981" />
+            <Bar dataKey="car" fill="#3b82f6" />
+            <Bar dataKey="truck" fill="#9333ea" />
+            <Bar dataKey="long-vehicle" fill="#ef4444" />
+            <Bar dataKey="bus" fill="#eab308" />
           </BarChart>
-        </ChartContainer>
+        </ResponsiveContainer>
       </CardContent>
-
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 leading-none font-medium">
-          Trending up by 12.3% <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="text-muted-foreground leading-none">
-          Showing fatal accidents by vehicle type from 2021 to 2024
-        </div>
-      </CardFooter>
     </Card>
   )
 }
