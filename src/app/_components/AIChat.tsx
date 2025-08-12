@@ -75,16 +75,18 @@ export default function AiChatInfoCard({
           {response.map((msg, idx) =>
             msg.role === "user" ? (
               <div key={idx} className="flex justify-end items-start gap-2">
-                <div className="bg-blue-500 text-white px-4 py-2 rounded-2xl max-w-[80%] whitespace-pre-wrap">
+                <div className="bg-black text-white px-4 py-2 rounded-2xl max-w-[80%] whitespace-pre-wrap">
                   {msg.content}
                 </div>
+                <div className="relative size-10 overflow-hidden rounded-full ">
+
                 <Image
-                  src="/profile.png" // your profile image path
+                  src="/images/user-1.jpg" // your profile image path
                   alt="You"
-                  width={32}
-                  height={32}
-                  className="rounded-full"
-                />
+                  fill
+                  className="object-center object-cover"
+                  />
+                  </div>
               </div>
             ) : (
               <div key={idx} className="flex items-start gap-2">
