@@ -1,28 +1,20 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { MessageSquare } from 'lucide-react';
-import { PiSpiralFill } from 'react-icons/pi';
+import { PiSpiralFill } from "react-icons/pi";
 
-export default function AiChatInfoCard() {
-  const [chatStarted, setChatStarted] = useState(false);
-  const [message, setMessage] = useState('');
-
-  const handleSend = () => {
-    if (message.trim() === '') return;
-    console.log('Sending message:', message);
-    // TODO: integrate AI chat logic here
-    setMessage('');
-  };
+export default function AiChatInfoCard({message,response,isLoading}: { message: string, isLoading:boolean,response:string[] }) {
+  
 
   return (
-    <div className="min-h-screen flex items-center pt-40 justify-center bg-white px-4 py-12">
-      <div className="max-w-md w-full space-y-6">
+    <div className=" flex items-center pt-40 justify-center mb-16   bg-white px-4 py-12">
+      <div className="max-w-md  w-full space-y-6">
         {/* Header */}
         <div className="text-center">
           <div className="flex flex-col justify-center items-center">
             <PiSpiralFill className="size-10 text-gray-800" />
-            <h1 className="text-xl font-semibold text-gray-900">Capabilities</h1>
+            <h1 className="text-xl font-semibold text-gray-900">
+              Capabilities
+            </h1>
           </div>
         </div>
 
@@ -42,37 +34,21 @@ export default function AiChatInfoCard() {
           </div>
         </div>
 
+        {/* AI Response */}
+        {response.map((res, i) => (
+          <div
+            key={i}
+            className={`bg-gray-100 ${
+              typeof res === "string" && res.toLowerCase().includes("error")
+                ? "bg-gray-600 font-medium text-white"
+                : ""
+            } p-4 rounded-lg text-gray-800 whitespace-pre-wrap`}
+          >
+            {res}
+          </div>
+        ))}
+
         {/* Chat Input Area */}
-        {chatStarted ? (
-          <div className="pt-6 space-y-2">
-            <div className="flex items-center gap-2">
-              <input
-                type="text"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                className="flex-1 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-600"
-                placeholder="Ask the AI something..."
-              />
-              <button
-                onClick={handleSend}
-                className="bg-gray-800 text-white px-4 py-2 rounded-full hover:bg-gray-700 transition"
-              >
-                Send
-              </button>
-            </div>
-            {/* You can show AI response here later */}
-          </div>
-        ) : (
-          <div className="flex justify-center pt-8">
-            <button
-              onClick={() => setChatStarted(true)}
-              className="bg-gray-800 text-white px-4 py-2 rounded-full hover:bg-gray-700 transition flex items-center gap-2"
-            >
-              <MessageSquare className="size-4" />
-              Start Chatting
-            </button>
-          </div>
-        )}
       </div>
     </div>
   );
