@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PiSpiralFill } from "react-icons/pi";
 import Image from "next/image";
-import { Message } from "../main/ai/page"; // assuming Message = { role: "user" | "ai", content: string }
+import { Message } from "../main/ai/page";
 
 export default function AiChatInfoCard({
   message,
@@ -16,10 +16,12 @@ export default function AiChatInfoCard({
 }) {
   const [displayedText, setDisplayedText] = useState("");
   const [typing, setTyping] = useState(false);
+  const [autoScroll, setAutoScroll] = useState(true); // track if auto-scroll is enabled
+  const latestTextRef = useRef<HTMLDivElement | null>(null);
 
-  // Get the latest AI message content for typing effect
   const latestAI = response.filter((msg) => msg.role === "ai").slice(-1)[0];
 
+  // Typing effect logic (unchanged)
   useEffect(() => {
     if (!isLoading && latestAI) {
       const text = latestAI.content;
@@ -36,11 +38,41 @@ export default function AiChatInfoCard({
           clearInterval(interval);
           setTyping(false);
         }
-      }, 10);
+      }, 0);
 
       return () => clearInterval(interval);
     }
   }, [isLoading, latestAI]);
+
+  // Listen for user scroll to toggle autoScroll state
+  useEffect(() => {
+  function onScroll() {
+    const scrollPosition = window.innerHeight + window.scrollY;
+    const bottomPosition = document.documentElement.scrollHeight;
+    console.log('posB',bottomPosition)
+    console.log('posScroll',scrollPosition)
+    if (scrollPosition >= bottomPosition - 5) {
+      setAutoScroll(true);
+    } else {
+      setAutoScroll(false);
+    }
+  }
+
+  window.addEventListener("scroll", onScroll);
+  onScroll(); // initialize on mount
+
+  return () => window.removeEventListener("scroll", onScroll);
+}, []);
+
+  // Auto-scroll only when autoScroll is true
+  useEffect(() => {
+    if (autoScroll) {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [displayedText, typing, response, message, autoScroll]);
 
   return (
     <div className="flex flex-col items-center pt-40 mb-16 bg-white px-4 py-12">
@@ -71,7 +103,6 @@ export default function AiChatInfoCard({
 
         {/* Chat bubbles */}
         <div className="space-y-4">
-          {/* Render all messages */}
           {response.map((msg, idx) =>
             msg.role === "user" ? (
               <div key={idx} className="flex justify-end items-start gap-2">
@@ -79,19 +110,21 @@ export default function AiChatInfoCard({
                   {msg.content}
                 </div>
                 <div className="relative size-10 overflow-hidden rounded-full ">
-
-                <Image
-                  src="/images/user-1.jpg" // your profile image path
-                  alt="You"
-                  fill
-                  className="object-center object-cover"
+                  <Image
+                    src="/images/user-1.jpg"
+                    alt="You"
+                    fill
+                    className="object-center object-cover"
                   />
-                  </div>
+                </div>
               </div>
             ) : (
               <div key={idx} className="flex items-start gap-2">
                 <PiSpiralFill className="size-8 text-gray-800" />
-                <div className="bg-gray-100 px-4 py-2 rounded-2xl max-w-[80%] text-gray-800 whitespace-pre-wrap">
+                <div
+                  className="bg-gray-100 px-4 py-2 rounded-2xl max-w-[80%] text-gray-800 whitespace-pre-wrap"
+                  ref={idx === response.length - 1 ? latestTextRef : null}
+                >
                   {idx === response.length - 1 && typing
                     ? displayedText
                     : msg.content}
@@ -107,6 +140,7 @@ export default function AiChatInfoCard({
             )
           )}
         </div>
+        <div ref={latestTextRef}></div>
       </div>
     </div>
   );

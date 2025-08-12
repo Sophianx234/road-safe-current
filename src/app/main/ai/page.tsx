@@ -24,22 +24,24 @@ function AiPage() {
   const handleSend = async () => {
     if (message.trim() === "") return;
     setLoading(true);
+    const userMessage = message;
+  setMessage("");
 
     // Add user's message
-    setResponse((prev) => [...prev, { role: "user", content: message }]);
-
+    setResponse((prev) => [...prev, { role: "user", content: userMessage }]);
+    
     try {
       const res = await fetch("/api/query-data", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: message }),
+        body: JSON.stringify({ question: userMessage }),
       });
-
+      
       const data = await res.json();
-
+      
       if (res.ok) {
         const answerText = data.answer || "No answer received";
-
+        
         // Add AI's answer
         setResponse((prev) => [...prev, { role: "ai", content: answerText }]);
       } else {
@@ -56,7 +58,6 @@ function AiPage() {
       ]);
     } finally {
       setLoading(false);
-      setMessage("");
     }
   };
 
