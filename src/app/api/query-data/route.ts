@@ -17,8 +17,10 @@ export async function POST(req: NextRequest) {
     });
 
     const answer = completion.choices[0]?.message?.content || "";
+return NextResponse.json({ 
+  answer: (answer || "").toString().trim()
+});
 
-    return NextResponse.json({ answer }, { status: 200 });
   } catch (err: any) {
     console.error("OpenAI API Error:", err);
     return NextResponse.json(

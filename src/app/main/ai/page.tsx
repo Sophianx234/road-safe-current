@@ -25,11 +25,17 @@ function AiPage() {
       });
 
       const data = await res.json();
-      if (res.ok) {
-        setResponse((prev) => [...prev, data.answer]);
-      } else {
-        setResponse((prev) => [...prev, data.error || "Something went wrong"]);
-      }
+     if (res.ok) {
+  const answerText =
+    typeof data.answer === "string"
+      ? data.answer
+      : JSON.stringify(data.answer || "");
+
+  setResponse((prev) => [...prev, answerText || "No answer received"]);
+} else {
+  setResponse((prev) => [...prev, data.error || "Something went wrong"]);
+}
+
     } catch (err) {
       console.error("Error fetching from API:", err);
       setResponse((prev) => [...prev, "Error fetching from API"]);
@@ -68,7 +74,7 @@ function AiPage() {
                 disabled={loading}
                 className="bg-gray-800 absolute right-2 flex justify-center items-center text-white p-3 rounded-full hover:bg-gray-700 transition"
               >
-                {!loading ? (
+                {loading ? (
                   <BeatLoader size={8} color="#fff" />
                 ) : (
                   <FaArrowUp />
