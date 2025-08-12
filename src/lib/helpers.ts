@@ -26,3 +26,9 @@ export function getChange(current: number, previous: number) {
     changeType: diff >= 0 ? "up" : "down" as const,
   };
 }
+
+export function cleanText(text: string) {
+  // Replace 2+ consecutive new lines with a single new line
+  return text.replace(/\n{2,}/g, "\n").trim();
+}
+

@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { PiSpiralFill } from "react-icons/pi";
 import Image from "next/image";
 import { Message } from "../main/ai/page";
+import { cleanText } from "@/lib/helpers";
+import ReactMarkdown from 'react-markdown'
 
 export default function AiChatInfoCard({
   message,
@@ -126,8 +128,10 @@ export default function AiChatInfoCard({
                   ref={idx === response.length - 1 ? latestTextRef : null}
                 >
                   {idx === response.length - 1 && typing
-                    ? displayedText
-                    : msg.content}
+                    ? ( <ReactMarkdown>{cleanText(displayedText)}</ReactMarkdown>)
+                    :  (
+    <ReactMarkdown>{cleanText(msg.content)}</ReactMarkdown>
+  )}
                   {idx === response.length - 1 && typing && (
                     <span className="inline-flex">
                       <span className="w-1.5 h-1.5 bg-gray-500 rounded-full mx-0.5 animate-bounce"></span>

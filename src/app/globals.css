@@ -13,9 +13,35 @@
     display: none; /* Chrome, Safari, Opera */
   }
 }
+
+.react-markdown p {
+  margin: 0; /* remove big paragraph gap */
+}
+
+.react-markdown p + p {
+  margin-top: 0.5rem; /* small gap between paragraphs */
+}
+
+.react-markdown h1, 
+.react-markdown h2, 
+.react-markdown h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.react-markdown ul, 
+.react-markdown ol {
+  margin: 0;
+  padding-left: 1.2rem; /* indent lists just a bit */
+}
+
+.react-markdown li {
+  margin-bottom: 0.25rem; /* less gap between list items */
+}
 .form-error {
   @apply text-xs bg-red-200 py-2 font-medium text-red-950 rounded-lg mt-2 px-3;
 }
+
 
 @theme {
   --font-inter: "Inter", "sans-serif";
