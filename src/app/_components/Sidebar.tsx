@@ -12,7 +12,7 @@ import clsx from 'clsx';
 
 // ✅ Make sure hrefs include the leading slash `/`
 const navItems = [
-  { icon: MdOutlineDashboard, href: '/main/dashboard' },
+  // { icon: MdOutlineDashboard, href: '/main/dashboard' },
   { icon: MdOutlineMap, href: '/main/map' },
   { icon: GiArtificialHive, href: '/main/ai' },
   { icon: MdOutlineSettings, href: '/main/settings' },

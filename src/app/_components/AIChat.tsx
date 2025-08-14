@@ -78,7 +78,7 @@ export default function AiChatInfoCard({
 
   return (
     <div className="flex flex-col items-center pt-40 mb-16 bg-white px-4 py-12">
-      <div className="max-w-md w-full space-y-6">
+      <div className="max-w-xl w-full space-y-6">
         {/* Header */}
         <div className="text-center">
           <div className="flex flex-col justify-center items-center">

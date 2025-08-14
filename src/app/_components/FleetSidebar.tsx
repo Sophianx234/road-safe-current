@@ -1,148 +1,180 @@
 'use client';
 
+import { useState } from 'react';
+import Image from 'next/image';
 import {
-  FaTachometerAlt,
-  FaThermometerHalf,
   FaMapMarkerAlt,
   FaExclamationTriangle,
   FaClock,
   FaCarCrash,
+  FaSkullCrossbones,
+  FaUserInjured,
 } from 'react-icons/fa';
+import { useDashStore } from '@/store/dash-store';
 
-const vehicles = [
-  {
-    name: 'Noah Car',
-    icon: '/images/car-1.png',
-    km: '486 KM',
-    status: 'Moving',
-    speed: '125 KM/H',
-    region: 'Northern',
-    temp: '18°C',
-    time: '13:25',
-    severity: 'Medium',
-  },
-  {
-    name: 'Peterbilt Trucks',
-    icon: '/images/truck-1.jpg',
-    km: '486 KM',
-    status: 'Crashed',
-    speed: '90 KM/H',
-    region: 'Eastern',
-    temp: '20°C',
-    time: '10:10',
-    severity: 'High',
-    highlighted: true,
-  },
-  {
-    name: 'Keeway V302C',
-    icon: '/images/motor-1.jpg',
-    km: '486 KM',
-    status: 'Idle',
-    speed: 'N/A',
-    region: 'Central',
-    temp: '24°C',
-    time: '16:40',
-    severity: 'Low',
-  },
-  {
-    name: '500 SJD',
-    icon: '/images/truck-1.png',
-    km: '486 KM',
-    status: 'Moving',
-    speed: '112 KM/H',
-    region: 'Volta',
-    temp: '22°C',
-    time: '09:30',
-    severity: 'Medium',
-  },
-];
+const getStatusStyle = (severity: string) => {
+  switch (severity.toLowerCase()) {
+    case 'fatal':
+      return 'bg-red-50 border-red-200 text-red-700';
+    case 'serious':
+      return 'bg-yellow-50 border-yellow-200 text-yellow-700';
+    case 'minor':
+      return 'bg-green-50 border-green-200 text-green-700';
+    default:
+      return 'bg-gray-50 border-gray-200 text-gray-500';
+  }
+};
+
+const getSeverityColor = (severity: string) => {
+  switch (severity.toLowerCase()) {
+    case 'fatal':
+      return 'text-red-600';
+    case 'serious':
+      return 'text-yellow-600';
+    case 'minor':
+      return 'text-green-600';
+    default:
+      return 'text-gray-400';
+  }
+};
 
 export default function FleetSidebar() {
+  const [loading] = useState(false);
+  const { accidents } = useDashStore();
+  const [showAll, setShowAll] = useState(false);
+
+  const maxVisible = 3;
+  const displayedAccidents = showAll
+    ? accidents.slice(1)
+    : accidents.slice(1, maxVisible + 1);
+
   return (
-    <div className="max-w-xs w-full  bg-white border border-gray-200 rounded-2xl shadow-lg p-5 space-y-6">
-      {/* Header Info */}
-      <section>
-        <div className="flex justify-between items-center mb-1">
-          <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Selected Vehicle</h2>
-          <button className="text-green-600 text-xs font-semibold hover:underline">Details</button>
+    <div className="max-w-xs w-full border mb-10 border-gray-200 rounded-lg shadow overflow-hidden text-sm bg-white">
+      {/* Highlighted Record */}
+      <div className="py-4 border-b border-gray-200 bg-gray-50">
+        <div className="flex px-4 justify-between items-center mb-2">
+          <h2 className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">
+            Accident Information
+          </h2>
         </div>
 
-        <h3 className="text-lg font-bold text-orange-600">POLSTAR 520 DDS</h3>
-
-        <div className="grid grid-cols-3 gap-2 mt-4 text-xs text-gray-600">
-          <div className="flex items-center gap-1">
-            <FaTachometerAlt className="text-gray-400" />
-            <span>135 KM/H</span>
+        {loading ? (
+          <div className="animate-pulse px-4">
+            <div className="h-4 w-28 bg-gray-100 rounded mb-3" />
           </div>
-          <div className="flex items-center gap-1">
-            <FaThermometerHalf className="text-gray-400" />
-            <span>20°C</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <FaClock className="text-gray-400" />
-            <span>12:42 PM</span>
-          </div>
-          <div className="flex items-center gap-1 col-span-2">
-            <FaMapMarkerAlt className="text-gray-400" />
-            <span>Accra, Ghana</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <FaExclamationTriangle className="text-yellow-500" />
-            <span className="text-xs font-semibold">Severity: High</span>
-          </div>
-        </div>
-
-        <img
-          src="/images/truck-1x.png"
-          alt="Highlighted Vehicle"
-          className="w-full mt-4 rounded-xl object-cover shadow-sm border border-gray-200"
-        />
-      </section>
-
-      {/* Other Vehicles */}
-      <section>
-        <div className="flex justify-between items-center mb-1">
-          <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Nearby Vehicles Involved</h2>
-          <button className="text-green-600 text-xs font-semibold hover:underline">View All</button>
-        </div>
-
-        <p className="text-xs text-gray-400 mb-2">Showing 4 related vehicles</p>
-
-        <div className="space-y-3">
-          {vehicles.map((v, index) => (
-            <div
-  key={index}
-  className={`flex items-center justify-between px-3 py-2 rounded-lg shadow-sm border border-gray-100 ${
-    v.highlighted ? 'bg-orange-50 border-orange-300' : 'hover:bg-gray-50'
-  }`}
->
-  <div className="flex items-center gap-3">
-    <img
-      src={v.icon}
-      alt={v.name}
-      className="w-9 h-9 rounded-md object-cover border border-gray-200"
-    />
-    <div className="space-y-0.5">
-      <p className="text-xs font-semibold text-gray-700">{v.name}</p>
-      <div className="flex items-center gap-1 text-[10px] text-gray-500">
-        <FaCarCrash className="text-gray-400 text-[10px]" />
-        <span>{v.status} · {v.region}</span>
+        ) : accidents.length > 0 ? (
+          <>
+            <h3 className="text-lg font-bold px-4 text-yellow-600 mb-3">
+              {accidents[0].vehicleType.toUpperCase()}
+            </h3>
+            <div className="px-4 grid grid-cols-2 space-y-1.5 text-xs">
+              <div className="flex items-center gap-2">
+                <FaMapMarkerAlt className="text-blue-600" />
+                <span className="font-medium capitalize">{accidents[0].region}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <FaExclamationTriangle className="text-red-600" />
+                <span className="font-semibold text-red-600">
+                  {accidents[0].severity.toUpperCase()}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <FaClock className="text-gray-500" />
+                <span>{new Date(accidents[0].date).toLocaleDateString()}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <FaSkullCrossbones className="text-red-700" />
+                <span>{accidents[0].fatalities} fatalities</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <FaUserInjured className="text-yellow-700" />
+                <span>{accidents[0].injuries} injuries</span>
+              </div>
+            </div>
+            <div className="mt-4 relative px-4">
+              <div className="relative w-full h-28 rounded-lg overflow-hidden border border-gray-200">
+                <Image
+                  src={`/images/${accidents[0].vehicleType || 'default'}-1.jpg`}
+                  alt={accidents[0].vehicleType}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="absolute top-2 right-6 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">
+                ALERT
+              </div>
+            </div>
+          </>
+        ) : (
+          <p className="px-4 text-xs text-gray-500">No fatal accidents found</p>
+        )}
       </div>
-      <div className="flex items-center gap-1 text-[10px] text-gray-400">
-        <FaExclamationTriangle className="text-yellow-500 text-[10px]" />
-        <span>{v.severity} severity</span>
-      </div>
-    </div>
-  </div>
-  <div className="flex flex-col items-end text-[10px] text-gray-600">
-    <span className="font-bold text-orange-600 text-xs">{v.km}</span>
-    <span>{v.speed}</span>
-  </div>
-</div>
 
-          ))}
+      {/* Other Records */}
+      <div className="p-4">
+        <div className="flex justify-between items-center mb-3">
+          <h2 className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">
+            Other Records
+          </h2>
         </div>
-      </section>
+
+        {loading ? (
+          <div className="space-y-2 animate-pulse">
+            {[...Array(maxVisible)].map((_, i) => (
+              <div key={i} className="h-14 bg-gray-100 rounded" />
+            ))}
+          </div>
+        ) : (
+          <>
+            <div className="space-y-2">
+              {displayedAccidents.map((accident) => (
+                <div
+                  key={accident._id}
+                  className={`flex items-center justify-between p-3 rounded border text-xs hover:shadow-md hover:scale-[1.01] transition ${getStatusStyle(
+                    accident.severity
+                  )}`}
+                >
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center gap-1 font-semibold capitalize">
+                      <FaCarCrash className="text-gray-600" /> {accident.vehicleType}
+                    </div>
+                    <div className="flex items-center gap-1 text-gray-500">
+                      <FaMapMarkerAlt className="text-blue-600" /> {accident.region}
+                    </div>
+                    <div
+                      className={`flex items-center gap-1 ${getSeverityColor(
+                        accident.severity
+                      )}`}
+                    >
+                      <FaExclamationTriangle /> {accident.severity}
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-end gap-1 text-right">
+                    <span className="flex items-center gap-1">
+                      <FaSkullCrossbones className="text-red-700" /> {accident.fatalities}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <FaUserInjured className="text-yellow-700" /> {accident.injuries}
+                    </span>
+                    <span className="flex items-center gap-1 text-gray-500">
+                      <FaClock /> {new Date(accident.date).toLocaleDateString()}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {accidents.length > maxVisible + 1 && (
+              <button
+                onClick={() => setShowAll((prev) => !prev)}
+                className="mt-3 w-full flex items-center justify-center gap-1 text-[11px] font-medium text-blue-600 hover:underline"
+              >
+                {showAll ? '▲ View Less' : '▼ View More'}
+              </button>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 }

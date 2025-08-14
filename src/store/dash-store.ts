@@ -1,20 +1,18 @@
 import { create } from "zustand";
 
 export type accidentType = {
-  _id:string
-    location: {
-        lat: number,
-        lng: number
-    },
-    date: string,
-    year: number,
-    region: string,
-    vehicleType: string,
-    accidentType: string,
-    severity: string,
-    fatalities: number,
-    injuries: number,
-    description: string
+    location: { lat: number; lng: number };
+  _id: string;
+  date: string;
+  year: number;
+  region: string;
+  locationName: string;
+  vehicleType: string;
+  accidentType: string;
+  severity: string;
+  fatalities: number;
+  injuries: number;
+  description: string;
 }
 export type DashStoreProps = {
   showMap: boolean;
