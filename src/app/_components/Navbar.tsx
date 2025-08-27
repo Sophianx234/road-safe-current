@@ -3,11 +3,28 @@
 import { useDashStore } from '@/store/dash-store';
 import { ChevronDown } from 'lucide-react';
 import Image from 'next/image';
+import { useEffect } from 'react';
 import { FaCarAlt, FaSearch } from 'react-icons/fa';
 import { MdOutlineNotificationsNone } from 'react-icons/md';
 
 export default function Navbar() {
-  const { toggleNotifications} = useDashStore();
+  const { toggleNotifications,user} = useDashStore();
+  useEffect(()=>{
+    async function fetchUser(){ 
+    if(!user){
+      const res = await fetch("/api/users/me");
+      if (res.ok) {
+        const data = await res.json();
+        console.log("Fetched user data:", data);
+        useDashStore.setState({ user: data });
+      } else {
+        console.error("Failed to fetch user data");
+      }
+
+    }
+  }
+  fetchUser()
+  },[]) 
   return (
     <header className="z-50 bg-white  flex sticky top-0 items-center justify-between  px-6 py-4 shadow-2xs">
       <div>
@@ -30,17 +47,17 @@ export default function Navbar() {
       <div className="flex items-center space-x-3">
         <MdOutlineNotificationsNone onClick={toggleNotifications} className='size-5 hover:text-orange-400 duration-150 transition-all'/>
         <div className="flex items-center space-x-2 bg-gray-100 rounded-full pr-3  cursor-pointer hover:bg-gray-200">
-          <div className='relative rounded-full overflow-hidden size-11'>
+          <div className='relative rounded-full border border-gray-300 overflow-hidden size-11'>
 
           <Image
-            src="/images/user-1.jpg" // Replace with actual profile image URL
+            src={user?.avatar || "/images/user-1.jpg"} // Replace with actual profile image URL
             alt="Admin"
             fill
             className=" object-cover"
             />
             </div>
           <div className="flex flex-col justify-center items-center text-right">
-            <span className="text-sm font-medium text-gray-800">Diky Khan</span>
+            <span className="text-sm font-medium text-gray-800">{user?.username}</span>
             <span className="text-xs text-gray-500">Admin</span>
           </div>
           <ChevronDown className="w-4 h-4 text-gray-500" />

@@ -1,7 +1,9 @@
+import { IUser } from "@/models/UserModel";
 import { create } from "zustand";
 
 export type accidentType = {
-    location: { lat: number; lng: number };
+  user: IUser | null;
+  location: { lat: number; lng: number };
   _id: string;
   date: string;
   year: number;
@@ -13,10 +15,14 @@ export type accidentType = {
   fatalities: number;
   injuries: number;
   description: string;
-}
+};
+
 export type DashStoreProps = {
   showMap: boolean;
   toggleMap: () => void;
+
+  user: IUser | null;
+  setUser: (user: IUser | null) => void;
 
   showTable: boolean;
   toggleTable: () => void;
@@ -35,25 +41,32 @@ export type DashStoreProps = {
 
   showCards: boolean;
   toggleCards: () => void;
+
   showAI: boolean;
   toggleAI: () => void;
+
   showNotifications: boolean;
-  toggleNotifications: () => void;  
+  toggleNotifications: () => void;
+
   accidents: accidentType[];
   setAccidents: (accidents: accidentType[]) => void;
-  accidentYear: string |null;
-  setAccidentYear: (year: string) => void;
-  latlng:{
-    lat: number;
-    lng: number;  
-  }|null,
+
+  accidentYear: string | null;
+  setAccidentYear: (year: string | null) => void;
+
+  latlng: { lat: number; lng: number } | null;
   setLatLng: (latlng: { lat: number; lng: number }) => void;
-  currentYearStats: null 
+
+  currentYearStats: Record<string, number> | null;
+  setCurrentYearStats: (stats: Record<string, number> | null) => void;
 };
 
 export const useDashStore = create<DashStoreProps>((set) => ({
   showMap: false,
   toggleMap: () => set((state) => ({ showMap: !state.showMap })),
+
+  user: null,
+  setUser: (user) => set(() => ({ user })),
 
   showTable: false,
   toggleTable: () => set((state) => ({ showTable: !state.showTable })),
@@ -72,16 +85,22 @@ export const useDashStore = create<DashStoreProps>((set) => ({
 
   showCards: false,
   toggleCards: () => set((state) => ({ showCards: !state.showCards })),
+
   showAI: false,
   toggleAI: () => set((state) => ({ showAI: !state.showAI })),
+
   showNotifications: false,
   toggleNotifications: () => set((state) => ({ showNotifications: !state.showNotifications })),
+
   accidents: [],
   setAccidents: (accidents) => set(() => ({ accidents })),
+
   latlng: null,
   setLatLng: (latlng) => set(() => ({ latlng })),
-  accidentYear: null,
-  setAccidentYear: (year) => set(() => ({ accidentYear: year })), 
-  currentYearStats: null,
 
+  accidentYear: null,
+  setAccidentYear: (year) => set(() => ({ accidentYear: year })),
+
+  currentYearStats: null,
+  setCurrentYearStats: (stats) => set(() => ({ currentYearStats: stats })),
 }));

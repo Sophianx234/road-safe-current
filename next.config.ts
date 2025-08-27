@@ -1,13 +1,28 @@
 import type { NextConfig } from "next";
 
-
-
-const nextConfig = {
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      config.externals.push('danfojs-node');
-    }
-    return config;
+const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "/**", // ✅ allow all paths
+      },
+      {
+        protocol: "https",
+        hostname: "random.imagecdn.app",
+        pathname: "/**", // ✅ allow all paths
+      },
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+        pathname: "/**", // ✅ allow all paths
+      },
+    ],
   },
 };
 
