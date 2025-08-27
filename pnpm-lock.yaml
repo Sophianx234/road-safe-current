@@ -86,6 +86,9 @@ importers:
       recharts:
         specifier: ^3.1.2
         version: 3.1.2(@types/react@19.1.8)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react-is@16.13.1)(react@19.0.0-rc.1)(redux@5.0.1)
+      sweetalert2:
+        specifier: ^11.22.5
+        version: 11.22.5
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -2975,6 +2978,9 @@ packages:
   supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+
+  sweetalert2@11.22.5:
+    resolution: {integrity: sha512-k9gb2M0n4b830FaWDmqaFQULIRvKixTbJOBkTN5KwRNIT8UxjGxusC9g67cj8sCxkJb9nVy2+PgyVd7vYK7cug==}
 
   table@6.7.1:
     resolution: {integrity: sha512-ZGum47Yi6KOOFDE8m223td53ath2enHcYLgOCjGr5ngu8bdIARQk6mN/wRMv4yMRcHnCSnHbCEha4sobQx5yWg==}
@@ -6409,6 +6415,8 @@ snapshots:
       has-flag: 4.0.0
 
   supports-preserve-symlinks-flag@1.0.0: {}
+
+  sweetalert2@11.22.5: {}
 
   table@6.7.1:
     dependencies:

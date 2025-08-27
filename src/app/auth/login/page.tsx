@@ -11,9 +11,10 @@ import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { DotStream } from 'ldrs/react'
 import 'ldrs/react/DotStream.css'
+import { useRouter } from "next/navigation";
 
 // Default values shown
 
@@ -35,6 +36,7 @@ export type LoginSchema = z.infer<typeof loginSchema>;
 
 export default function Login() {
   const [showPass, setShowPass] = useState(false);
+  const router = useRouter()
 
   const {
     register,
@@ -47,7 +49,6 @@ export default function Login() {
   const onSubmit = async (data: LoginSchema) => {
 
     try {
-      toast.loading("Authenticating...");
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -59,6 +60,7 @@ export default function Login() {
         const { message } = await res.json();
         toast.dismiss();
         toast.success(message || "successful");
+        router.push('/main/map')
         
       }
     } catch (err) {
@@ -84,20 +86,25 @@ export default function Login() {
 
         <div className="space-y-6">
           {/* Email */}
+          <div>
+
           <label className="relative items-center flex">
             <Input
               type="email"
               placeholder="Email"
               className="py-4 h-full rounded-2xl"
               {...register("email")}
-            />
+              />
             <CiMail className="absolute size-5 right-3 text-orange-300" />
           </label>
           {errors.email && (
-            <p className="text-red-500 text-sm">{errors.email.message}</p>
+            <p className="text-red-500 pt-1 pl-1 text-sm">{errors.email.message}</p>
           )}
+          </div>
 
           {/* Password */}
+          <div>
+
           <label className="relative items-center flex">
             <Input
               type={showPass ? "text" : "password"}
@@ -109,18 +116,19 @@ export default function Login() {
               <IoEyeOutline
                 onClick={() => setShowPass(true)}
                 className="absolute z-10 size-5 right-3 text-orange-300 cursor-pointer"
-              />
-            ) : (
-              <IoEyeOffOutline
+                />
+              ) : (
+                <IoEyeOffOutline
                 onClick={() => setShowPass(false)}
                 className="absolute z-10 size-5 right-3 text-orange-300 cursor-pointer"
-              />
+                />
             )}
           </label>
           {errors.password && (
-            <p className="text-red-500 text-sm">{errors.password.message}</p>
+            <p className="text-red-500 pt-1 pl-1 text-sm">{errors.password.message}</p>
           )}
         </div>
+          </div>
 
         {/* Remember + Forgot password */}
         <div className="flex items-center pt-6 font-barlow justify-between px-2 text-sm">
@@ -160,6 +168,7 @@ export default function Login() {
           className="object-cover"
         />
       </div>
+      <Toaster/>
     </div>
   );
 }
